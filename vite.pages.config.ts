@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import { fileURLToPath, URL } from "node:url";
 
 export default defineConfig({
-  root: "pages",
+  root: "github-pages",
   base: "/TeslaKnowHow/",
   publicDir: "../public",
   plugins: [react()],
@@ -11,7 +11,7 @@ export default defineConfig({
     outDir: "../pages-dist",
     emptyOutDir: true,
     rollupOptions: {
-      input: fileURLToPath(new URL("./pages/index.html", import.meta.url)),
+      input: fileURLToPath(new URL("./github-pages/index.html", import.meta.url)),
     },
   },
 });

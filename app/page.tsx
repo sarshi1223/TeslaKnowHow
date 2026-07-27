@@ -13,6 +13,17 @@ type Guide = {
   warning?: string;
 };
 
+type AdvancedTopic = {
+  id: string;
+  category: string;
+  icon: string;
+  title: string;
+  useWhen: string;
+  summary: string;
+  steps: string[];
+  note?: string;
+};
+
 const guides: Guide[] = [
   {
     id: "drive",
@@ -83,6 +94,150 @@ const firstWeek = [
   "閱讀車上手冊的道路救援與緊急開門章節",
 ];
 
+const advancedTopics: AdvancedTopic[] = [
+  {
+    id: "quick-bar",
+    category: "日常效率",
+    icon: "⌘",
+    title: "把常用功能放進快捷列",
+    useWhen: "每天上車",
+    summary: "把相機、除霧、能耗或常用 App 放在最順手的位置，減少行駛中翻選單。",
+    steps: ["長按應用程式啟動器中的圖示", "將常用項目拖曳到底部快捷列", "停車時完成配置，駕駛中只做必要操作"],
+  },
+  {
+    id: "voice",
+    category: "日常效率",
+    icon: "◍",
+    title: "用語音取代找選單",
+    useWhen: "雙手不離方向盤",
+    summary: "導航、溫度、雨刷與媒體等常見操作可先嘗試語音，畫面顯示的可用指令會隨版本更新。",
+    steps: ["按下方向盤語音按鍵或依車型操作", "用完整句子說出目的，例如「導航到家」", "先確認車輛回應，再繼續注意路況"],
+  },
+  {
+    id: "profiles",
+    category: "駕駛共享",
+    icon: "♙",
+    title: "設定檔綁定每位駕駛",
+    useWhen: "家人輪流開車",
+    summary: "座椅、方向盤、後視鏡與多項偏好可跟著駕駛人切換，不用每次重新調整。",
+    steps: ["控制 → 設定檔 → 新增駕駛人", "分別完成座椅與後視鏡位置", "啟用「輕鬆進出」前先確認後座空間"],
+    note: "代客泊車模式可限制車速與部分功能存取；借車不必共用 Tesla 帳號密碼。",
+  },
+  {
+    id: "keys",
+    category: "駕駛共享",
+    icon: "⌁",
+    title: "管理手機鑰匙與遠端駕駛",
+    useWhen: "借車或臨時授權",
+    summary: "透過 App 新增或移除駕駛人，並保留鑰匙卡作為手機沒電或連線異常時的備援。",
+    steps: ["只授權可信任的人，定期檢查駕駛人清單", "交車後讓每位駕駛完成自己的手機鑰匙", "離車前確認鑰匙卡不在車內"],
+  },
+  {
+    id: "location-charge",
+    category: "充電電池",
+    icon: "ϟ",
+    title: "讓充電上限跟著地點走",
+    useWhen: "住家、公司、旅館",
+    summary: "Model Y 可記住特定地點的充電上限與電流，日常不必反覆調整。",
+    steps: ["停在該地點後開啟「充電」頁面", "依車輛顯示的建議設定日常上限", "長途前再依需求調高，抵達後恢復日常設定"],
+    note: "電池類型與軟體版本會影響建議值，請以車上顯示為準。",
+  },
+  {
+    id: "schedule",
+    category: "充電電池",
+    icon: "◷",
+    title: "排程充電與預先調節",
+    useWhen: "固定通勤",
+    summary: "設定出發時間，讓車廂與電池在出門前就緒；插著電時也能減少行駛中的空調耗能。",
+    steps: ["充電 → 排程，建立住家或工作地點排程", "設定「結束於」接近預計出發時間", "同時開啟預先調節，出發前確認 App 狀態"],
+  },
+  {
+    id: "trip-planner",
+    category: "導航能耗",
+    icon: "↗",
+    title: "長途一定用車機導航",
+    useWhen: "跨縣市與山路",
+    summary: "旅程規劃會依即時能耗與充電站安排停靠；導航到超充也有助於電池準備充電。",
+    steps: ["輸入最終目的地，不只輸入下一個休息站", "查看抵達與返程預估電量", "遇到逆風、雨勢或爬坡時保留更多緩衝"],
+  },
+  {
+    id: "energy",
+    category: "導航能耗",
+    icon: "∿",
+    title: "用能耗圖找出續航差異",
+    useWhen: "預估電量下降較快",
+    summary: "比較預估與實際消耗，從速度、氣候、海拔與其他用電找出差異，不必只盯著公里數。",
+    steps: ["在安全停車時開啟能耗資訊", "查看是哪一類消耗高於預期", "先調整車速與空調，再重新評估充電點"],
+  },
+  {
+    id: "climate",
+    category: "空調停車",
+    icon: "☼",
+    title: "分清四種停車空調模式",
+    useWhen: "短暫離車或車內休息",
+    summary: "「保持恆溫」「寵物模式」「露營模式」用途不同；可用性與限制以車上選項為準。",
+    steps: ["離車前從空調畫面選擇正確模式", "確認剩餘電量與螢幕提示", "寵物留車仍應縮短時間並用 App 持續確認"],
+    note: "切勿把任何模式當成兒童獨留車內的安全措施。",
+  },
+  {
+    id: "heat",
+    category: "空調停車",
+    icon: "≋",
+    title: "除霧、座椅與方向盤加熱",
+    useWhen: "雨天、冬季與潮濕早晨",
+    summary: "優先使用局部加熱與預先調節；起霧時直接使用前擋除霧，不要邊開車邊摸索。",
+    steps: ["出發前用 App 預先開啟空調", "熟悉前擋與後擋除霧圖示的位置", "鏡頭或玻璃有霧氣時先恢復清晰視野"],
+  },
+  {
+    id: "dashcam",
+    category: "安全記錄",
+    icon: "●",
+    title: "看懂行車記錄器的三個狀態",
+    useWhen: "事故、刮傷或異常事件",
+    summary: "確認正在錄影、知道如何手動儲存，並在離車前判斷是否需要哨兵模式。",
+    steps: ["平時確認行車記錄器圖示無錯誤", "事件發生後先確保安全，再儲存片段", "重要片段盡快備份，避免循環錄影覆蓋"],
+  },
+  {
+    id: "sentry",
+    category: "安全記錄",
+    icon: "◉",
+    title: "用地點管理哨兵模式",
+    useWhen: "公共停車場",
+    summary: "依風險開啟哨兵模式，並評估是否排除住家、公司或常用地點，以控制待機耗電。",
+    steps: ["安全性設定中確認哨兵模式", "依實際環境設定排除地點", "長時間停放前先看剩餘電量"],
+  },
+  {
+    id: "assist",
+    category: "輔助駕駛",
+    icon: "◎",
+    title: "先建立自己的接管規則",
+    useWhen: "高速與快速道路",
+    summary: "把匝道、施工、豪雨、強光、標線模糊與複雜車流列為主動接管情境。",
+    steps: ["啟用前確認鏡頭乾淨且車道清楚", "持續監看前方，不只看螢幕動畫", "情況不確定時提早接管，不等警示"],
+    note: "所有自動輔助駕駛功能都不能取代駕駛人；功能會依地區、硬體與版本不同。",
+  },
+  {
+    id: "service",
+    category: "保養服務",
+    icon: "◇",
+    title: "用 App 完成服務閉環",
+    useWhen: "異音、警示或耗材更換",
+    summary: "從 App 建立服務需求、附上照片與發生條件，並在到店前記下能重現問題的步驟。",
+    steps: ["記錄時間、車速、天候與警示文字", "Tesla App → 服務，選擇最接近的問題", "上傳照片或影片，追蹤報價與訊息"],
+  },
+  {
+    id: "tires",
+    category: "保養服務",
+    icon: "◌",
+    title: "輪胎是最常需要管理的耗材",
+    useWhen: "每月與長途前",
+    summary: "檢查冷胎胎壓、胎紋與內外側磨耗；換輪圈或輪胎後確認車上設定正確。",
+    steps: ["以車門柱標示與車上警示為依據", "發現偏磨、抖動或跑偏時安排檢查", "更換不同輪圈後更新輪圈與輪胎設定"],
+  },
+];
+
+const advancedCategories = ["日常效率", "駕駛共享", "充電電池", "導航能耗", "空調停車", "安全記錄", "輔助駕駛", "保養服務"];
+
 const scenarios = [
   {
     q: "手機沒電，怎麼開車？",
@@ -126,6 +281,8 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [openGuide, setOpenGuide] = useState<string | null>("drive");
   const [openScenario, setOpenScenario] = useState<number | null>(null);
+  const [advancedCategory, setAdvancedCategory] = useState("日常效率");
+  const [openAdvanced, setOpenAdvanced] = useState<string | null>("quick-bar");
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [quizOpen, setQuizOpen] = useState(false);
 
@@ -164,6 +321,7 @@ export default function Home() {
         <div className="nav-links">
           <a href="#path">7 天上手</a>
           <a href="#guides">知識庫</a>
+          <a href="#advanced">進階操作</a>
           <a href="#rescue">情境急救</a>
         </div>
         <button className="quiz-button" onClick={() => setQuizOpen(true)}>測測看 <span>→</span></button>
@@ -252,6 +410,67 @@ export default function Home() {
           ))}
         </div>
         {filtered.length === 0 && <p className="empty">找不到相符內容，試試「充電」或「胎壓」。</p>}
+      </section>
+
+      <section className="advanced-section" id="advanced">
+        <div className="advanced-heading">
+          <div>
+            <span className="kicker light">AFTER DAY 7</span>
+            <h2>熟悉之後，<br />開始把車用得更順。</h2>
+          </div>
+          <div className="advanced-route">
+            <span>建議順序</span>
+            <div><b>WEEK 02</b><small>省下每天的操作</small></div>
+            <i>→</i>
+            <div><b>WEEK 03</b><small>掌握充電與能耗</small></div>
+            <i>→</i>
+            <div><b>WEEK 04</b><small>安全使用進階功能</small></div>
+          </div>
+        </div>
+        <div className="advanced-layout">
+          <div className="advanced-tabs" role="tablist" aria-label="進階知識分類">
+            {advancedCategories.map((c, i) => (
+              <button
+                key={c}
+                role="tab"
+                aria-selected={advancedCategory === c}
+                className={advancedCategory === c ? "active" : ""}
+                onClick={() => {
+                  setAdvancedCategory(c);
+                  setOpenAdvanced(advancedTopics.find((topic) => topic.category === c)?.id ?? null);
+                }}
+              >
+                <span>{String(i + 1).padStart(2, "0")}</span>{c}<i>→</i>
+              </button>
+            ))}
+          </div>
+          <div className="advanced-content">
+            <div className="advanced-summary">
+              <span>{advancedTopics.filter((topic) => topic.category === advancedCategory).length} 個必學情境</span>
+              <p>先學會最常遇到的操作，再依你的停車與充電環境調整。功能名稱可能隨軟體更新變動。</p>
+            </div>
+            {advancedTopics.filter((topic) => topic.category === advancedCategory).map((topic) => (
+              <article className={openAdvanced === topic.id ? "advanced-card open" : "advanced-card"} key={topic.id}>
+                <button onClick={() => setOpenAdvanced(openAdvanced === topic.id ? null : topic.id)} aria-expanded={openAdvanced === topic.id}>
+                  <span className="advanced-icon">{topic.icon}</span>
+                  <span><small>{topic.useWhen}</small><strong>{topic.title}</strong></span>
+                  <i>{openAdvanced === topic.id ? "−" : "+"}</i>
+                </button>
+                {openAdvanced === topic.id && (
+                  <div className="advanced-detail">
+                    <p>{topic.summary}</p>
+                    <ol>{topic.steps.map((step) => <li key={step}>{step}</li>)}</ol>
+                    {topic.note && <div className="advanced-note"><b>記住</b>{topic.note}</div>}
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+        <div className="advanced-footer">
+          <p><b>判斷原則</b>　方便功能應該減少分心，不是增加操作。行駛中看不懂的功能，先停車再處理。</p>
+          <a href="https://www.tesla.com/ownersmanual/modely/zh_tw/" target="_blank" rel="noreferrer">查閱你的最新版手冊 ↗</a>
+        </div>
       </section>
 
       <section className="rescue-section" id="rescue">
