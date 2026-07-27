@@ -250,6 +250,12 @@ type HelpTopic = {
   title: string;
   icon: string;
   summary: string;
+  media?: {
+    kind: "photo" | "icon";
+    src?: string;
+    alt?: string;
+    caption?: string;
+  };
   steps: string[];
   highlight: string;
   source: string;
@@ -260,7 +266,6 @@ const firstWeek: FirstWeekTask[] = [
     title: "完成手機鑰匙配對，實際用鑰匙卡解鎖一次",
     detail: "加碼：確認 App 背景執行與藍牙權限，鑰匙卡隨身備援。",
     steps: ["打開 Tesla App，確認已登入正確帳號。", "到車內控制選單完成手機鑰匙配對。", "離開車輛後，實際用手機靠近解鎖一次。", "把鑰匙卡放在包內固定位置，確認你知道它在哪裡。"],
-    helpLinks: ["driver-profile"],
   },
   {
     title: "調整座椅、方向盤、後視鏡並儲存駕駛設定檔",
@@ -424,6 +429,12 @@ const helpTopics: HelpTopic[] = [
     title: "緊急釋放裝置在哪裡",
     icon: "🧰",
     summary: "前車門、後車門、前行李廂或其他緊急釋放位置，最好先在安全狀態下找一次，真的需要時才不會慌。",
+    media: {
+      kind: "photo",
+      src: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1400&q=80",
+      alt: "車門內部緊急釋放位置示意照片",
+      caption: "真實照片會放在這裡：先認清釋放裝置在哪個門袋或門板位置。",
+    },
     steps: [
       "先在手冊裡找對應部位的圖示，確認是前車門、後車門還是前行李廂。",
       "前車門通常在車窗開關前方，後車門則在門袋底部附近。",
@@ -438,6 +449,12 @@ const helpTopics: HelpTopic[] = [
     title: "門柱上的胎壓標籤在哪裡",
     icon: "🏷️",
     summary: "胎壓與負載標籤在駕駛座車門柱上，開門後就能看到。先找這張標籤，再去對照冷胎胎壓。",
+    media: {
+      kind: "photo",
+      src: "https://images.unsplash.com/photo-1600705722824-97b5cbde2b0f?auto=format&fit=crop&w=1400&q=80",
+      alt: "汽車門柱與標籤位置示意照片",
+      caption: "真實照片會放在這裡：開啟駕駛座車門後，門柱上的標籤就在這個區域。",
+    },
     steps: [
       "打開駕駛座車門。",
       "看車門鉸鏈附近的車門柱位置。",
@@ -922,6 +939,11 @@ export default function Home() {
                                 {done.includes(item.title) ? "取消完成" : "標記完成"}
                               </button>
                             </div>
+                            <ol>
+                              {item.steps.map((step) => (
+                                <li key={step}>{step}</li>
+                              ))}
+                            </ol>
                             {item.helpLinks?.length ? (
                               <div className="quick-links" aria-label="快捷教學">
                                 {item.helpLinks.map((helpId) => {
@@ -936,11 +958,6 @@ export default function Home() {
                                 })}
                               </div>
                             ) : null}
-                            <ol>
-                              {item.steps.map((step) => (
-                                <li key={step}>{step}</li>
-                              ))}
-                            </ol>
                           </div>
                         )}
                       </div>
@@ -1139,6 +1156,12 @@ export default function Home() {
               <b>先記住</b>
               <p>{activeHelpTopic.highlight}</p>
             </div>
+            {activeHelpTopic.media?.kind === "photo" && activeHelpTopic.media.src ? (
+              <figure className="help-media">
+                <img src={activeHelpTopic.media.src} alt={activeHelpTopic.media.alt ?? activeHelpTopic.title} />
+                {activeHelpTopic.media.caption ? <figcaption>{activeHelpTopic.media.caption}</figcaption> : null}
+              </figure>
+            ) : null}
             <div className="help-steps">
               {activeHelpTopic.steps.map((step, index) => (
                 <div className="help-step" key={step}>
