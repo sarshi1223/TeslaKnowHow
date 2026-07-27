@@ -984,19 +984,21 @@ export default function Home() {
         </div>
       </aside>
 
-      <aside className="desktop-page-sidebar" aria-label="頁面側邊索引">
-        {pageTabs.map((page) => (
-          <button
-            key={page.id}
-            className={activePage === page.id ? "side-index active" : "side-index"}
-            onClick={() => setActivePage(page.id)}
-          >
-            <span>{page.label}</span>
-            <small>{page.hint}</small>
-          </button>
-        ))}
-      </aside>
+      <div className="desktop-shell">
+        <aside className="desktop-page-sidebar" aria-label="頁面側邊索引">
+          {pageTabs.map((page) => (
+            <button
+              key={page.id}
+              className={activePage === page.id ? "side-index active" : "side-index"}
+              onClick={() => setActivePage(page.id)}
+            >
+              <span>{page.label}</span>
+              <small>{page.hint}</small>
+            </button>
+          ))}
+        </aside>
 
+        <div className="desktop-content">
       <section className={activePage === "home" ? "home-panel page-panel active" : "home-panel page-panel hidden"} id="home">
         <section className="hero">
           <div className="hero-copy">
@@ -1043,289 +1045,285 @@ export default function Home() {
 
       <div className="page-layout">
         <div className="page-stack">
-      <section className={activePage === "path" ? "week-section page-panel active" : "week-section page-panel hidden"} id="path">
-        <div className="section-heading">
-          <div><span className="kicker">YOUR FIRST QUEST</span><h2>Model Y 新手任務線</h2><p>不用趕進度，也不必一天全破。從接車開局到安全備援，照自己的節奏逐步升級。</p></div>
-          <div className="progress-ring" style={{"--p": `${progress * 3.6}deg`} as React.CSSProperties}>
-            <div><strong>{progress}%</strong><small>{done.length * 100} XP</small></div>
-          </div>
-        </div>
-        <div className="quest-overview">
-          <span><b>{done.length}</b> / {firstWeek.length} 任務完成</span>
-          <div><i style={{ width: `${progress}%` }} /></div>
-          <em>{progress === 100 ? "全成就解鎖！" : `再完成 ${firstWeek.length - done.length} 項就全破`}</em>
-        </div>
-        <div className="quest-stages">
-          {checklistStages.map((stage, stageIndex) => {
-            const stageDone = stage.tasks.filter((item) => done.includes(item.title)).length;
-            const complete = stageDone === stage.tasks.length;
-            return (
-              <section className={complete ? "quest-stage complete" : "quest-stage"} key={stage.level}>
-                <header>
-                  <span className="stage-icon">{complete ? "✓" : stage.icon}</span>
-                  <div><small>{stage.level}</small><h3>{stage.title}</h3><p>{stage.subtitle}</p></div>
-                  <em>{complete ? "CLEAR!" : `${stageDone} / ${stage.tasks.length}`}</em>
-                </header>
-                <div className="checklist">
-                  {stage.tasks.map((item) => {
-                    const taskIndex = firstWeek.indexOf(item);
-                    return (
-                      <div key={item.title} className={done.includes(item.title) ? "check-item done" : "check-item"}>
-                        <button type="button" className="check-summary" onClick={() => setOpenTask(openTask === item.title ? null : item.title)} aria-expanded={openTask === item.title}>
-                          <span className="day">Q{stageIndex + 1}.{taskIndex - checklistStages.slice(0, stageIndex).reduce((n, s) => n + s.tasks.length, 0) + 1}</span>
-                          <span className="box">{done.includes(item.title) ? "✓" : ""}</span>
-                          <span className="task">
-                            <b>{item.title}</b>
-                            <small>{item.detail}</small>
-                          </span>
-                          <span className="xp">{openTask === item.title ? "收起步驟 −" : "+100 XP / 點開看步驟 +"}</span>
-                        </button>
-                        {openTask === item.title && (
-                          <div className="task-steps">
-                            <div className="task-steps-head">
-                              <div className="task-steps-title">
-                                <span className="task-step-icon">🧭</span>
-                                <b>怎麼做</b>
-                              </div>
-                              <button type="button" className="task-done" onClick={() => toggleDone(item.title)}>
-                                {done.includes(item.title) ? "取消完成" : "標記完成"}
-                              </button>
-                            </div>
-                            <ol>
-                              {item.steps.map((step) => (
-                                <li key={step}>{step}</li>
-                              ))}
-                            </ol>
-                            {item.helpLinks?.length ? (
-                              <div className="quick-links" aria-label="快捷教學">
-                                {item.helpLinks.map((helpId) => {
-                                  const topic = helpTopics.find((entry) => entry.id === helpId);
-                                  if (!topic) return null;
-                                  return (
-                                    <button key={helpId} type="button" className="quick-link" onClick={() => setOpenHelpTopic(helpId)}>
-                                      <span>{topic.icon}</span>
-                                      <b>{topic.title}</b>
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            ) : null}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </section>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className={activePage === "guides" ? "guides-section page-panel active" : "guides-section page-panel hidden"} id="guides">
-        <div className="section-heading compact">
-          <div><span className="kicker">KNOWLEDGE, CURATED</span><h2>真正需要懂的，只有這幾類</h2></div>
-          <label className="search"><span>⌕</span><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="搜尋：充電、胎壓、手機鑰匙…" /></label>
-        </div>
-        <div className="filters">
-          {["全部", ...Array.from(new Set(guides.map((g) => g.category)))].map((c) => (
-            <button key={c} className={category === c ? "active" : ""} onClick={() => setCategory(c)}>{c}</button>
-          ))}
-        </div>
-        <div className="guide-grid">
-          {filtered.map((g, i) => (
-            <article className={openGuide === g.id ? "guide-card expanded" : "guide-card"} key={g.id}>
-              <div className="card-top"><span className="card-num">0{i + 1}</span><span className="card-icon">{g.icon}</span><span className="tag">{g.category}</span></div>
-              <h3>{g.title}</h3>
-              <p>{g.summary}</p>
-              {openGuide === g.id && <div className="details"><ul>{g.tips.map((tip) => <li key={tip}>{tip}</li>)}</ul>{g.warning && <div className="warning"><b>注意</b>{g.warning}</div>}</div>}
-              <button className="card-action" onClick={() => setOpenGuide(openGuide === g.id ? null : g.id)} aria-expanded={openGuide === g.id}>
-                <span>{g.time}</span>{openGuide === g.id ? "收起 −" : "展開重點 ＋"}
-              </button>
-            </article>
-          ))}
-        </div>
-        {filtered.length === 0 && <p className="empty">找不到相符內容，試試「充電」或「胎壓」。</p>}
-      </section>
-
-      <section className={activePage === "advanced" ? "advanced-section page-panel active" : "advanced-section page-panel hidden"} id="advanced">
-        <div className="advanced-heading">
-          <div>
-            <span className="kicker light">AFTER DAY 7</span>
-            <h2>熟悉之後，<br />開始把車用得更順。</h2>
-          </div>
-          <div className="advanced-route">
-            <span>建議順序</span>
-            <div><b>WEEK 02</b><small>省下每天的操作</small></div>
-            <i>→</i>
-            <div><b>WEEK 03</b><small>掌握充電與能耗</small></div>
-            <i>→</i>
-            <div><b>WEEK 04</b><small>安全使用進階功能</small></div>
-          </div>
-        </div>
-        <div className="advanced-layout">
-          <div className="advanced-tabs" role="tablist" aria-label="進階知識分類">
-            {advancedCategories.map((c, i) => (
-              <button
-                key={c}
-                role="tab"
-                aria-selected={advancedCategory === c}
-                className={advancedCategory === c ? "active" : ""}
-                onClick={() => {
-                  setAdvancedCategory(c);
-                  setOpenAdvanced(advancedTopics.find((topic) => topic.category === c)?.id ?? null);
-                }}
-              >
-                <span>{String(i + 1).padStart(2, "0")}</span>{c}<i>→</i>
-              </button>
-            ))}
-          </div>
-          <div className="advanced-content">
-            <div className="advanced-summary">
-              <span>{advancedTopics.filter((topic) => topic.category === advancedCategory).length} 個必學情境</span>
-              <p>先學會最常遇到的操作，再依你的停車與充電環境調整。功能名稱可能隨軟體更新變動。</p>
-            </div>
-            {advancedTopics.filter((topic) => topic.category === advancedCategory).map((topic) => (
-              <article className={openAdvanced === topic.id ? "advanced-card open" : "advanced-card"} key={topic.id}>
-                <button onClick={() => setOpenAdvanced(openAdvanced === topic.id ? null : topic.id)} aria-expanded={openAdvanced === topic.id}>
-                  <span className="advanced-icon">{topic.icon}</span>
-                  <span><small>{topic.useWhen}</small><strong>{topic.title}</strong></span>
-                  <i>{openAdvanced === topic.id ? "−" : "+"}</i>
-                </button>
-                {openAdvanced === topic.id && (
-                  <div className="advanced-detail">
-                    <p>{topic.summary}</p>
-                    <ol>{topic.steps.map((step) => <li key={step}>{step}</li>)}</ol>
-                    {topic.note && <div className="advanced-note"><b>記住</b>{topic.note}</div>}
-                  </div>
-                )}
-              </article>
-            ))}
-          </div>
-        </div>
-        <div className="advanced-footer">
-          <p><b>判斷原則</b>　方便功能應該減少分心，不是增加操作。行駛中看不懂的功能，先停車再處理。</p>
-          <a href="https://www.tesla.com/ownersmanual/modely/zh_tw/" target="_blank" rel="noreferrer">查閱你的最新版手冊 ↗</a>
-        </div>
-      </section>
-
-      <section className={activePage === "owner-tips" ? "owner-tips-section page-panel active" : "owner-tips-section page-panel hidden"} id="owner-tips">
-        <div className="tips-heading">
-          <div>
-            <span className="kicker">OWNER NOTES</span>
-            <h2>車主社群裡，<br />真正實用的小知識</h2>
-          </div>
-          <div className="tips-context">
-            <b>9 則精選</b>
-            <p>整理自兩個台灣 Tesla 知識站。標籤會提醒你哪些屬於經驗、版本差異或安全事項；點卡片可查看原始文章。</p>
-          </div>
-        </div>
-        <div className="tip-filters" role="tablist" aria-label="車主錦囊分類">
-          {ownerTipCategories.map((c) => (
-            <button key={c} className={ownerTipCategory === c ? "active" : ""} onClick={() => setOwnerTipCategory(c)}>
-              {c}
-            </button>
-          ))}
-        </div>
-        <div className="owner-tip-grid">
-          {ownerTips.filter((tip) => ownerTipCategory === "全部" || tip.category === ownerTipCategory).map((tip) => (
-            <a className="owner-tip-card" href={tip.url} target="_blank" rel="noreferrer" key={tip.title}>
-              <div className="tip-meta">
-                <span className="tip-icon">{tip.icon}</span>
-                <span>{tip.category}</span>
-                <em className={`tip-level ${tip.level === "安全提醒" ? "safety" : tip.level === "版本依賴" ? "version" : ""}`}>{tip.level}</em>
+          <section className={activePage === "path" ? "week-section page-panel active" : "week-section page-panel hidden"} id="path">
+            <div className="section-heading">
+              <div><span className="kicker">YOUR FIRST QUEST</span><h2>Model Y 新手任務線</h2><p>不用趕進度，也不必一天全破。從接車開局到安全備援，照自己的節奏逐步升級。</p></div>
+              <div className="progress-ring" style={{"--p": `${progress * 3.6}deg`} as React.CSSProperties}>
+                <div><strong>{progress}%</strong><small>{done.length * 100} XP</small></div>
               </div>
-              <h3>{tip.title}</h3>
-              <p>{tip.summary}</p>
-              <div className="tip-action"><small>帶走這一招</small><strong>{tip.action}</strong></div>
-              <div className="tip-source"><span>來源 · {tip.source}</span><i>閱讀原文 ↗</i></div>
-            </a>
-          ))}
-        </div>
-        <div className="tips-disclaimer">
-          <b>怎麼讀這一區？</b>
-          <p>車主經驗適合當作探索入口，不是安全規範。功能、介面與相容性可能因年式、硬體、地區及軟體版本而不同；操作前請以車內提示與最新版官方手冊為準。</p>
-        </div>
-        <div className="tool-picks-shell">
-          <div className="tool-picks-head">
-            <div>
-              <span className="kicker">COMMUNITY PICKS</span>
-              <h2>大家常推的第三方 App 和車用配件</h2>
-              <p>這裡整理的是社群和評測文章裡最常被提到的實用工具。先看「解決什麼問題」，再決定要不要買。</p>
             </div>
-            <div className="tool-picks-note">
-              <b>小提醒</b>
-              <p>第三方 App 與配件會受年式、硬體版本與地區差異影響；買之前先確認你的 Model Y 年份與 fitment。</p>
+            <div className="quest-overview">
+              <span><b>{done.length}</b> / {firstWeek.length} 任務完成</span>
+              <div><i style={{ width: `${progress}%` }} /></div>
+              <em>{progress === 100 ? "全成就解鎖！" : `再完成 ${firstWeek.length - done.length} 項就全破`}</em>
             </div>
-          </div>
-
-          <div className="tool-group">
-            <div className="tool-group-title">
-              <span>APP</span>
-              <h3>實用第三方 App</h3>
-            </div>
-            <div className="tool-grid">
-              {recommendedApps.map((item) => (
-                <a className="tool-card" href={item.url} target="_blank" rel="noreferrer" key={item.name}>
-                  <div className="tool-top">
-                    <span className="tool-icon">{item.icon}</span>
-                    <div>
-                      <b>{item.name}</b>
-                      <small>{item.badge}</small>
+            <div className="quest-stages">
+              {checklistStages.map((stage, stageIndex) => {
+                const stageDone = stage.tasks.filter((item) => done.includes(item.title)).length;
+                const complete = stageDone === stage.tasks.length;
+                return (
+                  <section className={complete ? "quest-stage complete" : "quest-stage"} key={stage.level}>
+                    <header>
+                      <span className="stage-icon">{complete ? "✓" : stage.icon}</span>
+                      <div><small>{stage.level}</small><h3>{stage.title}</h3><p>{stage.subtitle}</p></div>
+                      <em>{complete ? "CLEAR!" : `${stageDone} / ${stage.tasks.length}`}</em>
+                    </header>
+                    <div className="checklist">
+                      {stage.tasks.map((item) => {
+                        const taskIndex = firstWeek.indexOf(item);
+                        return (
+                          <div key={item.title} className={done.includes(item.title) ? "check-item done" : "check-item"}>
+                            <button type="button" className="check-summary" onClick={() => setOpenTask(openTask === item.title ? null : item.title)} aria-expanded={openTask === item.title}>
+                              <span className="day">Q{stageIndex + 1}.{taskIndex - checklistStages.slice(0, stageIndex).reduce((n, s) => n + s.tasks.length, 0) + 1}</span>
+                              <span className="box">{done.includes(item.title) ? "✓" : ""}</span>
+                              <span className="task">
+                                <b>{item.title}</b>
+                                <small>{item.detail}</small>
+                              </span>
+                              <span className="xp">{openTask === item.title ? "收起步驟 −" : "+100 XP / 點開看步驟 +"}</span>
+                            </button>
+                            {openTask === item.title && (
+                              <div className="task-steps">
+                                <div className="task-steps-head">
+                                  <div className="task-steps-title">
+                                    <span className="task-step-icon">🧭</span>
+                                    <b>怎麼做</b>
+                                  </div>
+                                  <button type="button" className="task-done" onClick={() => toggleDone(item.title)}>
+                                    {done.includes(item.title) ? "取消完成" : "標記完成"}
+                                  </button>
+                                </div>
+                                <ol>
+                                  {item.steps.map((step) => <li key={step}>{step}</li>)}
+                                </ol>
+                                {item.helpLinks?.length ? (
+                                  <div className="quick-links" aria-label="快捷教學">
+                                    {item.helpLinks.map((helpId) => {
+                                      const topic = helpTopics.find((entry) => entry.id === helpId);
+                                      if (!topic) return null;
+                                      return (
+                                        <button key={helpId} type="button" className="quick-link" onClick={() => setOpenHelpTopic(helpId)}>
+                                          <span>{topic.icon}</span>
+                                          <b>{topic.title}</b>
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                ) : null}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
+                  </section>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className={activePage === "guides" ? "guides-section page-panel active" : "guides-section page-panel hidden"} id="guides">
+            <div className="section-heading compact">
+              <div><span className="kicker">KNOWLEDGE, CURATED</span><h2>真正需要懂的，只有這幾類</h2></div>
+              <label className="search"><span>⌕</span><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="搜尋：充電、胎壓、手機鑰匙…" /></label>
+            </div>
+            <div className="filters">
+              {["全部", ...Array.from(new Set(guides.map((g) => g.category)))].map((c) => (
+                <button key={c} className={category === c ? "active" : ""} onClick={() => setCategory(c)}>{c}</button>
+              ))}
+            </div>
+            <div className="guide-grid">
+              {filtered.map((g, i) => (
+                <article className={openGuide === g.id ? "guide-card expanded" : "guide-card"} key={g.id}>
+                  <div className="card-top"><span className="card-num">0{i + 1}</span><span className="card-icon">{g.icon}</span><span className="tag">{g.category}</span></div>
+                  <h3>{g.title}</h3>
+                  <p>{g.summary}</p>
+                  {openGuide === g.id && <div className="details"><ul>{g.tips.map((tip) => <li key={tip}>{tip}</li>)}</ul>{g.warning && <div className="warning"><b>注意</b>{g.warning}</div>}</div>}
+                  <button className="card-action" onClick={() => setOpenGuide(openGuide === g.id ? null : g.id)} aria-expanded={openGuide === g.id}>
+                    <span>{g.time}</span>{openGuide === g.id ? "收起 −" : "展開重點 ＋"}
+                  </button>
+                </article>
+              ))}
+            </div>
+            {filtered.length === 0 && <p className="empty">找不到相符內容，試試「充電」或「胎壓」。</p>}
+          </section>
+
+          <section className={activePage === "advanced" ? "advanced-section page-panel active" : "advanced-section page-panel hidden"} id="advanced">
+            <div className="advanced-heading">
+              <div>
+                <span className="kicker light">AFTER DAY 7</span>
+                <h2>熟悉之後，<br />開始把車用得更順。</h2>
+              </div>
+              <div className="advanced-route">
+                <span>建議順序</span>
+                <div><b>WEEK 02</b><small>省下每天的操作</small></div>
+                <i>→</i>
+                <div><b>WEEK 03</b><small>掌握充電與能耗</small></div>
+                <i>→</i>
+                <div><b>WEEK 04</b><small>安全使用進階功能</small></div>
+              </div>
+            </div>
+            <div className="advanced-layout">
+              <div className="advanced-tabs" role="tablist" aria-label="進階知識分類">
+                {advancedCategories.map((c, i) => (
+                  <button
+                    key={c}
+                    role="tab"
+                    aria-selected={advancedCategory === c}
+                    className={advancedCategory === c ? "active" : ""}
+                    onClick={() => {
+                      setAdvancedCategory(c);
+                      setOpenAdvanced(advancedTopics.find((topic) => topic.category === c)?.id ?? null);
+                    }}
+                  >
+                    <span>{String(i + 1).padStart(2, "0")}</span>{c}<i>→</i>
+                  </button>
+                ))}
+              </div>
+              <div className="advanced-content">
+                <div className="advanced-summary">
+                  <span>{advancedTopics.filter((topic) => topic.category === advancedCategory).length} 個必學情境</span>
+                  <p>先學會最常遇到的操作，再依你的停車與充電環境調整。功能名稱可能隨軟體更新變動。</p>
+                </div>
+                {advancedTopics.filter((topic) => topic.category === advancedCategory).map((topic) => (
+                  <article className={openAdvanced === topic.id ? "advanced-card open" : "advanced-card"} key={topic.id}>
+                    <button onClick={() => setOpenAdvanced(openAdvanced === topic.id ? null : topic.id)} aria-expanded={openAdvanced === topic.id}>
+                      <span className="advanced-icon">{topic.icon}</span>
+                      <span><small>{topic.useWhen}</small><strong>{topic.title}</strong></span>
+                      <i>{openAdvanced === topic.id ? "−" : "+"}</i>
+                    </button>
+                    {openAdvanced === topic.id && (
+                      <div className="advanced-detail">
+                        <p>{topic.summary}</p>
+                        <ol>{topic.steps.map((step) => <li key={step}>{step}</li>)}</ol>
+                        {topic.note && <div className="advanced-note"><b>記住</b>{topic.note}</div>}
+                      </div>
+                    )}
+                  </article>
+                ))}
+              </div>
+            </div>
+            <div className="advanced-footer">
+              <p><b>判斷原則</b>　方便功能應該減少分心，不是增加操作。行駛中看不懂的功能，先停車再處理。</p>
+              <a href="https://www.tesla.com/ownersmanual/modely/zh_tw/" target="_blank" rel="noreferrer">查閱你的最新版手冊 ↗</a>
+            </div>
+          </section>
+
+          <section className={activePage === "owner-tips" ? "owner-tips-section page-panel active" : "owner-tips-section page-panel hidden"} id="owner-tips">
+            <div className="tips-heading">
+              <div>
+                <span className="kicker">OWNER NOTES</span>
+                <h2>車主社群裡，<br />真正實用的小知識</h2>
+              </div>
+              <div className="tips-context">
+                <b>9 則精選</b>
+                <p>整理自兩個台灣 Tesla 知識站。標籤會提醒你哪些屬於經驗、版本差異或安全事項；點卡片可查看原始文章。</p>
+              </div>
+            </div>
+            <div className="tip-filters" role="tablist" aria-label="車主錦囊分類">
+              {ownerTipCategories.map((c) => (
+                <button key={c} className={ownerTipCategory === c ? "active" : ""} onClick={() => setOwnerTipCategory(c)}>
+                  {c}
+                </button>
+              ))}
+            </div>
+            <div className="owner-tip-grid">
+              {ownerTips.filter((tip) => ownerTipCategory === "全部" || tip.category === ownerTipCategory).map((tip) => (
+                <a className="owner-tip-card" href={tip.url} target="_blank" rel="noreferrer" key={tip.title}>
+                  <div className="tip-meta">
+                    <span className="tip-icon">{tip.icon}</span>
+                    <span>{tip.category}</span>
+                    <em className={`tip-level ${tip.level === "安全提醒" ? "safety" : tip.level === "版本依賴" ? "version" : ""}`}>{tip.level}</em>
                   </div>
-                  <p>{item.summary}</p>
-                  <div className="tool-why"><b>適合誰</b><span>{item.why}</span></div>
-                  <div className="tool-source">{item.source}</div>
+                  <h3>{tip.title}</h3>
+                  <p>{tip.summary}</p>
+                  <div className="tip-action"><small>帶走這一招</small><strong>{tip.action}</strong></div>
+                  <div className="tip-source"><span>來源 · {tip.source}</span><i>閱讀原文 ↗</i></div>
                 </a>
               ))}
             </div>
-          </div>
-
-          <div className="tool-group">
-            <div className="tool-group-title">
-              <span>ACCESSORIES</span>
-              <h3>常見實用配件</h3>
+            <div className="tips-disclaimer">
+              <b>怎麼讀這一區？</b>
+              <p>車主經驗適合當作探索入口，不是安全規範。功能、介面與相容性可能因年式、硬體、地區及軟體版本而不同；操作前請以車內提示與最新版官方手冊為準。</p>
             </div>
-            <div className="tool-grid">
-              {recommendedAccessories.map((item) => (
-                <a className="tool-card" href={item.url} target="_blank" rel="noreferrer" key={item.name}>
-                  <div className="tool-top">
-                    <span className="tool-icon">{item.icon}</span>
-                    <div>
-                      <b>{item.name}</b>
-                      <small>{item.badge}</small>
-                    </div>
-                  </div>
-                  <p>{item.summary}</p>
-                  <div className="tool-why"><b>適合誰</b><span>{item.why}</span></div>
-                  <div className="tool-source">{item.source}</div>
-                </a>
+            <div className="tool-picks-shell">
+              <div className="tool-picks-head">
+                <div>
+                  <span className="kicker">COMMUNITY PICKS</span>
+                  <h2>大家常推的第三方 App 和車用配件</h2>
+                  <p>這裡整理的是社群和評測文章裡最常被提到的實用工具。先看「解決什麼問題」，再決定要不要買。</p>
+                </div>
+                <div className="tool-picks-note">
+                  <b>小提醒</b>
+                  <p>第三方 App 與配件會受年式、硬體版本與地區差異影響；買之前先確認你的 Model Y 年份與 fitment。</p>
+                </div>
+              </div>
+
+              <div className="tool-group">
+                <div className="tool-group-title">
+                  <span>APP</span>
+                  <h3>實用第三方 App</h3>
+                </div>
+                <div className="tool-grid">
+                  {recommendedApps.map((item) => (
+                    <a className="tool-card" href={item.url} target="_blank" rel="noreferrer" key={item.name}>
+                      <div className="tool-top">
+                        <span className="tool-icon">{item.icon}</span>
+                        <div>
+                          <b>{item.name}</b>
+                          <small>{item.badge}</small>
+                        </div>
+                      </div>
+                      <p>{item.summary}</p>
+                      <div className="tool-why"><b>適合誰</b><span>{item.why}</span></div>
+                      <div className="tool-source">{item.source}</div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="tool-group">
+                <div className="tool-group-title">
+                  <span>ACCESSORIES</span>
+                  <h3>常見實用配件</h3>
+                </div>
+                <div className="tool-grid">
+                  {recommendedAccessories.map((item) => (
+                    <a className="tool-card" href={item.url} target="_blank" rel="noreferrer" key={item.name}>
+                      <div className="tool-top">
+                        <span className="tool-icon">{item.icon}</span>
+                        <div>
+                          <b>{item.name}</b>
+                          <small>{item.badge}</small>
+                        </div>
+                      </div>
+                      <p>{item.summary}</p>
+                      <div className="tool-why"><b>適合誰</b><span>{item.why}</span></div>
+                      <div className="tool-source">{item.source}</div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className={activePage === "rescue" ? "rescue-section page-panel active" : "rescue-section page-panel hidden"} id="rescue">
+            <div className="rescue-intro">
+              <span className="kicker light">WHEN THINGS GO WRONG</span>
+              <h2>遇到狀況，<br />先別慌。</h2>
+              <p>常見的四種新手情境，先記住處理原則。實際畫面與步驟請以你的車輛提示為準。</p>
+              <a href="https://www.tesla.com/ownersmanual/modely/zh_tw/" target="_blank" rel="noreferrer">開啟 Tesla 官方手冊 ↗</a>
+            </div>
+            <div className="scenario-list">
+              {scenarios.map((s, i) => (
+                <button key={s.q} className={openScenario === i ? "scenario open" : "scenario"} onClick={() => setOpenScenario(openScenario === i ? null : i)} aria-expanded={openScenario === i}>
+                  <span>0{i + 1}</span><div><strong>{s.q}</strong>{openScenario === i && <p>{s.a}</p>}</div><i>{openScenario === i ? "−" : "+"}</i>
+                </button>
               ))}
             </div>
-          </div>
+          </section>
         </div>
-      </section>
-
-      <section className={activePage === "rescue" ? "rescue-section page-panel active" : "rescue-section page-panel hidden"} id="rescue">
-        <div className="rescue-intro">
-          <span className="kicker light">WHEN THINGS GO WRONG</span>
-          <h2>遇到狀況，<br />先別慌。</h2>
-          <p>常見的四種新手情境，先記住處理原則。實際畫面與步驟請以你的車輛提示為準。</p>
-          <a href="https://www.tesla.com/ownersmanual/modely/zh_tw/" target="_blank" rel="noreferrer">開啟 Tesla 官方手冊 ↗</a>
-        </div>
-        <div className="scenario-list">
-          {scenarios.map((s, i) => (
-            <button key={s.q} className={openScenario === i ? "scenario open" : "scenario"} onClick={() => setOpenScenario(openScenario === i ? null : i)} aria-expanded={openScenario === i}>
-              <span>0{i + 1}</span><div><strong>{s.q}</strong>{openScenario === i && <p>{s.a}</p>}</div><i>{openScenario === i ? "−" : "+"}</i>
-            </button>
-          ))}
-        </div>
-      </section>
-
       </div>
-      </div>
-
       <section className="source-section">
         <div><span className="kicker">KEEP LEARNING</span><h2>資訊會更新，讓官方手冊當最後一關</h2></div>
         <p>車輛功能會隨年式、硬體與軟體版本改變。本指南用來快速建立觀念；涉及安全、規格或實際操作時，請回到你車內的最新版手冊確認。</p>
@@ -1388,6 +1386,8 @@ export default function Home() {
           </section>
         </div>
       )}
+        </div>
+      </div>
     </main>
   );
 }
