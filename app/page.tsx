@@ -963,26 +963,28 @@ export default function Home() {
         </div>
       </nav>
 
-      <aside className={mobileIndexOpen ? "mobile-index-backdrop open" : "mobile-index-backdrop"} aria-hidden={!mobileIndexOpen}>
-        <button className="mobile-index-scrim" type="button" aria-label="關閉索引" onClick={() => setMobileIndexOpen(false)} />
-        <div className={mobileIndexOpen ? "mobile-index-sheet open" : "mobile-index-sheet"}>
-          <div className="mobile-index-head">
-            <div>
-              <span>頁面索引</span>
-              <b>快速切換區塊</b>
+      {mobileIndexOpen && (
+        <aside className="mobile-index-backdrop open" aria-hidden={!mobileIndexOpen}>
+          <button className="mobile-index-scrim" type="button" aria-label="關閉索引" onClick={() => setMobileIndexOpen(false)} />
+          <div className="mobile-index-sheet open">
+            <div className="mobile-index-head">
+              <div>
+                <span>頁面索引</span>
+                <b>快速切換區塊</b>
+              </div>
+              <button type="button" onClick={() => setMobileIndexOpen(false)} aria-label="關閉索引">×</button>
             </div>
-            <button type="button" onClick={() => setMobileIndexOpen(false)} aria-label="關閉索引">×</button>
+            <div className="mobile-index-list">
+              {pageTabs.map((page) => (
+                <button key={page.id} className={activePage === page.id ? "side-index active" : "side-index"} onClick={() => { setActivePage(page.id); setMobileIndexOpen(false); }}>
+                  <span>{page.label}</span>
+                  <small>{page.hint}</small>
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="mobile-index-list">
-            {pageTabs.map((page) => (
-              <button key={page.id} className={activePage === page.id ? "side-index active" : "side-index"} onClick={() => { setActivePage(page.id); setMobileIndexOpen(false); }}>
-                <span>{page.label}</span>
-                <small>{page.hint}</small>
-              </button>
-            ))}
-          </div>
-        </div>
-      </aside>
+        </aside>
+      )}
 
       <div className="desktop-shell">
         <aside className="desktop-page-sidebar" aria-label="頁面側邊索引">
