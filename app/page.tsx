@@ -35,6 +35,16 @@ type OwnerTip = {
   url: string;
 };
 
+type ToolPick = {
+  name: string;
+  icon: string;
+  summary: string;
+  why: string;
+  source: string;
+  url: string;
+  badge?: string;
+};
+
 const guides: Guide[] = [
   {
     id: "drive",
@@ -311,8 +321,8 @@ const firstWeek: FirstWeekTask[] = [
   },
   {
     title: "實際操作一次前、後行李廂與緊急釋放",
-    detail: "了解正常開啟、障礙物高度設定，以及前行李廂內部逃生按鈕。",
-    steps: ["停車後實際開啟前、後行李廂一次。", "觀察手動與 App 兩種開啟方式的位置。", "確認前行李廂的障礙物高度與關閉方式。", "順手看懂緊急釋放裝置在哪裡。"],
+    detail: "了解 Model Y 的前備箱、後行李廂與無電手動開啟位置。",
+    steps: ["停車後實際開啟前、後行李廂一次。", "觀察車內按鈕與 App 兩種開啟方式的位置。", "確認前備箱關閉時不要夾到物品。", "順手看懂緊急釋放裝置在哪裡。"],
     helpLinks: ["trunk-release"],
   },
   {
@@ -323,7 +333,7 @@ const firstWeek: FirstWeekTask[] = [
   {
     title: "檢查冷胎胎壓、門柱標籤與胎紋",
     detail: "不要只等警示燈；同時看內外側是否偏磨、有無割傷或異物。",
-    steps: ["冷車時查看門柱上的胎壓與規格標籤。", "用胎壓錶確認四輪數值是否一致。", "蹲下檢查胎紋深度與內外側磨耗。", "順手看看有沒有石子、割傷或鼓包。"],
+    steps: ["冷車時查看駕駛座車門門柱上的胎壓與規格標籤。", "用胎壓錶確認四輪數值是否一致。", "蹲下檢查胎紋深度與內外側磨耗。", "順手看看有沒有石子、割傷或鼓包。"],
     helpLinks: ["pillar-label"],
   },
   {
@@ -412,33 +422,33 @@ const helpTopics: HelpTopic[] = [
   },
   {
     id: "manual-operation",
-    title: "手動操作要注意什麼",
+    title: "Model Y 無電備援怎麼做",
     icon: "✋",
-    summary: "像是手動開門、手動換檔或緊急情況下的操作，都要先確認對應的位置和條件，避免誤用。",
+    summary: "Model Y 的備援操作主要是無電時開門與必要時的前備箱處理；平常仍應使用車內正常按鈕與觸控介面。",
     steps: [
-      "先看螢幕上的正常操作按鈕在哪裡，知道什麼情況需要手動。",
-      "若觸控螢幕無法使用，再依手冊切換到手動換檔或手動開啟方式。",
-      "任何手動裝置都應只在必要時使用。",
-      "使用前先停車並確認車輛狀態，避免邊開邊操作。",
+      "先確認前門與後門的正常開門按鈕位置。",
+      "只有在車輛無電或手冊明確要求時，才使用手動車門釋放。",
+      "前門是車窗開關前方的手動釋放裝置；後門是門袋內的機械式釋放纜線。",
+      "前備箱若遇到沒電狀態，先依官方手冊使用外部低電壓電源，再處理開啟。",
     ],
-    highlight: "手動操作是備用方案，不是日常操作方式。",
-    source: "Tesla Model Y 2025+ 車主手冊｜換檔 / 車門",
+    highlight: "Model Y 的手動操作重點是「無電開門」與「必要時備援」，不是日常操作。",
+    source: "Tesla Model Y 2025+ 車主手冊｜沒電時開啟車門 / 開啟前備箱",
   },
   {
     id: "trunk-release",
     title: "緊急釋放裝置在哪裡",
     icon: "🧰",
-    summary: "前車門、後車門、前行李廂或其他緊急釋放位置，最好先在安全狀態下找一次，真的需要時才不會慌。",
+    summary: "Model Y 的重點是前門、後門，以及前備箱與後行李廂相關的緊急處理位置。先在安全狀態下找一次，真的需要時才不會慌。",
     media: {
       kind: "photo",
-      src: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1400&q=80",
-      alt: "車門內部緊急釋放位置示意照片",
-      caption: "真實照片會放在這裡：先認清釋放裝置在哪個門袋或門板位置。",
+      src: "/help-images/trunk-release.png",
+      alt: "後行李箱緊急釋放裝置照片",
+      caption: "後行李箱緊急釋放裝置位置圖：先認清箭頭指向的位置。",
     },
     steps: [
-      "先在手冊裡找對應部位的圖示，確認是前車門、後車門還是前行李廂。",
-      "前車門通常在車窗開關前方，後車門則在門袋底部附近。",
-      "前行李廂若遇到沒電狀態，需依外接低電壓電源的步驟處理。",
+      "先在手冊裡找對應部位的圖示，確認是前車門、後車門，或行李廂相關位置。",
+      "前車門的手動釋放在車窗開關前方；後車門則在門袋底部的機械式釋放位置。",
+      "前備箱若遇到沒電狀態，先依官方手冊使用外部低電壓電源，再處理開啟。",
       "平常可以先在車內熟悉位置，但不要隨便拉動。",
     ],
     highlight: "先找位置，再看開法，最後才實際操作。",
@@ -448,16 +458,16 @@ const helpTopics: HelpTopic[] = [
     id: "pillar-label",
     title: "門柱上的胎壓標籤在哪裡",
     icon: "🏷️",
-    summary: "胎壓與負載標籤在駕駛座車門柱上，開門後就能看到。先找這張標籤，再去對照冷胎胎壓。",
+    summary: "胎壓與負載標籤在駕駛座前門門柱上，開門後就能看到。先找這張標籤，再去對照冷胎胎壓。",
     media: {
       kind: "photo",
-      src: "https://images.unsplash.com/photo-1600705722824-97b5cbde2b0f?auto=format&fit=crop&w=1400&q=80",
-      alt: "汽車門柱與標籤位置示意照片",
-      caption: "真實照片會放在這裡：開啟駕駛座車門後，門柱上的標籤就在這個區域。",
+      src: "/help-images/door-jamb-label.png",
+      alt: "門柱上的胎壓與規格標籤位置圖",
+      caption: "位置圖：開啟駕駛座車門後，箭頭指向的就是門柱標籤。",
     },
     steps: [
       "打開駕駛座車門。",
-      "看車門鉸鏈附近的車門柱位置。",
+      "看車門鉸鏈附近、門框內側的車門柱位置。",
       "找到寫有輪胎尺寸、胎壓和載重資訊的標籤。",
       "用這張標籤來對照冷胎胎壓，而不是只看輪胎側邊文字。",
     ],
@@ -754,6 +764,102 @@ const ownerTips: OwnerTip[] = [
 ];
 
 const ownerTipCategories = ["全部", ...Array.from(new Set(ownerTips.map((tip) => tip.category)))];
+
+const recommendedApps: ToolPick[] = [
+  {
+    name: "Tessie",
+    icon: "📱",
+    summary: "很多車主拿它看耗電、充電紀錄、遠端狀態與駕駛數據，適合想把自己的車況看得更細的人。",
+    why: "適合想追蹤耗電與用車習慣的新車主。",
+    source: "App 比較整理 / Tesla app 社群",
+    url: "https://www.tessie.com/",
+    badge: "進階紀錄",
+  },
+  {
+    name: "PlugShare",
+    icon: "🗺️",
+    summary: "找充電站與看站點評價的常見工具，社群回報對第三方充電站很有幫助。",
+    why: "適合找第三方充電站、看現場評價。",
+    source: "EV 旅程工具比較 / 車主社群",
+    url: "https://www.plugshare.com/",
+    badge: "找站必備",
+  },
+  {
+    name: "ABRP",
+    icon: "🧭",
+    summary: "長途規劃常用的 EV 路線工具，適合先粗算充電停靠點，再回到車機導航確認。",
+    why: "適合長途旅行前先做路線功課。",
+    source: "EV 路線規劃比較",
+    url: "https://abetterrouteplanner.com/",
+    badge: "長途規劃",
+  },
+  {
+    name: "TezLab",
+    icon: "⚙️",
+    summary: "主打車輛數據、駕駛統計與電耗分析，常見於想研究自己開法的車主討論中。",
+    why: "適合想看駕駛行為與電耗細節。",
+    source: "App 比較整理 / 車主社群",
+    url: "https://www.tezlabapp.com/",
+    badge: "用車分析",
+  },
+];
+
+const recommendedAccessories: ToolPick[] = [
+  {
+    name: "全車／後車廂腳踏墊",
+    icon: "🧼",
+    summary: "防泥沙、防雨水、防小孩食物碎屑，幾乎是最常見的第一批升級。",
+    why: "最先保護車內地毯，日常最有感。",
+    source: "Model Y 配件評比 / 車主社群",
+    url: "https://besttesla.com/magazine/best-tesla-model-y-accessories-2026",
+    badge: "優先買",
+  },
+  {
+    name: "螢幕保護貼",
+    icon: "🛡️",
+    summary: "減少手指油污與刮傷風險，適合把大螢幕當主要操作入口的 Model Y。",
+    why: "螢幕是整台車最常碰的地方。",
+    source: "配件評比 / 社群推薦",
+    url: "https://teslaaccessoriesguide.com/model-y/",
+    badge: "日常保護",
+  },
+  {
+    name: "中央扶手收納",
+    icon: "🧰",
+    summary: "把悠遊卡、鑰匙、零錢、充電線整理好，減少每次找東西的時間。",
+    why: "最直接降低車內雜亂。",
+    source: "Juniper/Model Y 配件整理",
+    url: "https://www.basenor.com/blogs/tesla-guides/best-tesla-model-y-accessories",
+    badge: "整理收納",
+  },
+  {
+    name: "車頂遮陽簾／遮陽板",
+    icon: "🌤️",
+    summary: "夏天停戶外時很實用，能減少車內悶熱與冷氣負擔。",
+    why: "適合台灣炎熱氣候與戶外停車。",
+    source: "Model Y 配件評比 / 熱天使用情境",
+    url: "https://evpicked.com/best-tesla-model-y-accessories",
+    badge: "熱天必看",
+  },
+  {
+    name: "輪胎打氣機",
+    icon: "🫧",
+    summary: "搭配胎壓標籤一起看，能在低胎壓或長途前快速補氣。",
+    why: "和門柱胎壓標籤最直接搭配。",
+    source: "Juniper 車主入門配件",
+    url: "https://www.teslamodelguy.com/best/tesla-model-y-juniper-accessories",
+    badge: "安全備品",
+  },
+  {
+    name: "置物收納盒／後車廂整理",
+    icon: "📦",
+    summary: "前備箱、後車廂與中央扶手的收納件，能把日常雜物分層放好。",
+    why: "適合通勤、接送與露營使用。",
+    source: "Tesla accessories guide / 車主社群",
+    url: "https://besttesla.com/magazine/best-tesla-model-y-accessories-2026",
+    badge: "實用型",
+  },
+];
 
 const scenarios = [
   {
@@ -1093,6 +1199,65 @@ export default function Home() {
         <div className="tips-disclaimer">
           <b>怎麼讀這一區？</b>
           <p>車主經驗適合當作探索入口，不是安全規範。功能、介面與相容性可能因年式、硬體、地區及軟體版本而不同；操作前請以車內提示與最新版官方手冊為準。</p>
+        </div>
+        <div className="tool-picks-shell">
+          <div className="tool-picks-head">
+            <div>
+              <span className="kicker">COMMUNITY PICKS</span>
+              <h2>大家常推的第三方 App 和車用配件</h2>
+              <p>這裡整理的是社群和評測文章裡最常被提到的實用工具。先看「解決什麼問題」，再決定要不要買。</p>
+            </div>
+            <div className="tool-picks-note">
+              <b>小提醒</b>
+              <p>第三方 App 與配件會受年式、硬體版本與地區差異影響；買之前先確認你的 Model Y 年份與 fitment。</p>
+            </div>
+          </div>
+
+          <div className="tool-group">
+            <div className="tool-group-title">
+              <span>APP</span>
+              <h3>實用第三方 App</h3>
+            </div>
+            <div className="tool-grid">
+              {recommendedApps.map((item) => (
+                <a className="tool-card" href={item.url} target="_blank" rel="noreferrer" key={item.name}>
+                  <div className="tool-top">
+                    <span className="tool-icon">{item.icon}</span>
+                    <div>
+                      <b>{item.name}</b>
+                      <small>{item.badge}</small>
+                    </div>
+                  </div>
+                  <p>{item.summary}</p>
+                  <div className="tool-why"><b>適合誰</b><span>{item.why}</span></div>
+                  <div className="tool-source">{item.source}</div>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="tool-group">
+            <div className="tool-group-title">
+              <span>ACCESSORIES</span>
+              <h3>常見實用配件</h3>
+            </div>
+            <div className="tool-grid">
+              {recommendedAccessories.map((item) => (
+                <a className="tool-card" href={item.url} target="_blank" rel="noreferrer" key={item.name}>
+                  <div className="tool-top">
+                    <span className="tool-icon">{item.icon}</span>
+                    <div>
+                      <b>{item.name}</b>
+                      <small>{item.badge}</small>
+                    </div>
+                  </div>
+                  <p>{item.summary}</p>
+                  <div className="tool-why"><b>適合誰</b><span>{item.why}</span></div>
+                  <div className="tool-source">{item.source}</div>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
