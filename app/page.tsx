@@ -760,19 +760,21 @@ export default function Home() {
                           </span>
                           <span className="xp">{openTask === item.title ? "收起步驟 −" : "+100 XP / 點開看步驟 +"}</span>
                         </button>
-                        <div className={openTask === item.title ? "task-steps open" : "task-steps"}>
-                          <div className="task-steps-head">
-                            <b>怎麼做</b>
-                            <button type="button" className="task-done" onClick={() => toggleDone(item.title)}>
-                              {done.includes(item.title) ? "取消完成" : "標記完成"}
-                            </button>
+                        {openTask === item.title && (
+                          <div className="task-steps">
+                            <div className="task-steps-head">
+                              <b>怎麼做</b>
+                              <button type="button" className="task-done" onClick={() => toggleDone(item.title)}>
+                                {done.includes(item.title) ? "取消完成" : "標記完成"}
+                              </button>
+                            </div>
+                            <ol>
+                              {item.steps.map((step) => (
+                                <li key={step}>{step}</li>
+                              ))}
+                            </ol>
                           </div>
-                          <ol>
-                            {item.steps.map((step) => (
-                              <li key={step}>{step}</li>
-                            ))}
-                          </ol>
-                        </div>
+                        )}
                       </div>
                     );
                   })}
