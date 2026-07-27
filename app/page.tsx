@@ -151,6 +151,91 @@ const guides: Guide[] = [
     summary: "服務預約前記下發生時間、速度、路況與警示文字，照片或短片通常比只寫「有異音」更有效。",
     tips: ["安全停妥後拍下完整警示", "記錄冷車／熱車、轉彎或顛簸等條件", "透過 Tesla App 服務項目附上資料"],
   },
+  {
+    id: "child-seat",
+    icon: "♙",
+    category: "安全",
+    title: "兒童座椅先確認位置與固定方式",
+    time: "6 分鐘",
+    summary: "依兒童體型、座椅規格與車內固定點安裝；每次出發前確認座椅沒有鬆動、安全帶路徑正確。",
+    tips: ["閱讀兒童座椅與車主手冊兩份說明", "確認 ISOFIX／安全帶固定點與上拉帶", "兒童不可留在無人看管的車內"],
+    warning: "後向式兒童座椅不得放在啟用安全氣囊的前座。",
+  },
+  {
+    id: "load",
+    icon: "▤",
+    category: "安全",
+    title: "露營與搬家前先看車輛負載",
+    time: "4 分鐘",
+    summary: "乘客、行李、車頂架與拖車重量都會計入負載；重物應放低、固定，避免急煞時移動。",
+    tips: ["查看門柱的輪胎與負載資訊標籤", "不要超過標示的乘員與載重限制", "裝載後重新評估胎壓、視野與煞車距離"],
+  },
+  {
+    id: "normal-sounds",
+    icon: "∿",
+    category: "車輛操作",
+    title: "先認識電動車的正常聲響",
+    time: "4 分鐘",
+    summary: "停車時的泵浦、風扇、冷媒流動、煞車或電池熱管理聲不一定代表故障，官方手冊有聲音範例可比對。",
+    tips: ["記錄聲音出現時的充電與空調狀態", "與官方正常運作聲響頁面比對", "伴隨警示、異味或駕駛異常時安排服務"],
+  },
+  {
+    id: "camera-care",
+    icon: "◉",
+    category: "輔助駕駛",
+    title: "鏡頭乾淨，輔助功能才有可靠視野",
+    time: "3 分鐘",
+    summary: "雨水、霧氣、泥沙、強光與遮擋都可能限制攝影機；出發前快速巡視比事後猜警示有效。",
+    tips: ["清潔擋風玻璃與車身鏡頭區域", "不要在鏡頭附近貼膜或裝飾", "畫面提示視野受限時降低依賴並準備接管"],
+  },
+  {
+    id: "range-buffer",
+    icon: "∿",
+    category: "充電",
+    title: "把抵達電量當成動態預測",
+    time: "5 分鐘",
+    summary: "速度、雨勢、逆風、爬坡、溫度與載重都會改變預估；長途應持續看抵達電量趨勢並保留緩衝。",
+    tips: ["使用車機導航到最終目的地", "抵達預估持續下降時提早減速或補電", "不要用標示續航直接當作可行駛距離"],
+  },
+  {
+    id: "charging-lights",
+    icon: "✦",
+    category: "充電",
+    title: "看懂充電埠燈號與解鎖方式",
+    time: "4 分鐘",
+    summary: "充電埠顏色與閃爍方式可提示待機、充電或故障狀態；拔槍前需停止充電並確認車輛已解鎖。",
+    tips: ["P 檔時可用 Tesla 充電槍按鈕開啟充電口", "遇到紅色或異常燈號先看車內訊息", "不要拉扯、扭折或強行拔除接頭"],
+  },
+  {
+    id: "low-voltage",
+    icon: "!",
+    category: "安全",
+    title: "低電壓系統沒電時，處理方式不同",
+    time: "6 分鐘",
+    summary: "車門、前行李廂與高電壓電池可能無法用平常方式操作；先看手冊的年式對應步驟並聯絡道路救援。",
+    tips: ["不要把機械開門裝置當日常把手", "記住 App 內道路救援入口", "救援人員到場前不要自行拆卸高電壓部件"],
+    warning: "不同年式的低電壓架構與接點可能不同，只依你的車主手冊操作。",
+  },
+  {
+    id: "flood",
+    icon: "≈",
+    category: "安全",
+    title: "車輛泡水後不要自行重新啟動",
+    time: "3 分鐘",
+    summary: "若車輛曾遭淹水或泡水，遠離車輛並聯絡救援與保險；不要嘗試充電或恢復高電壓系統。",
+    tips: ["先確保人員安全並遠離積水", "告知救援人員這是電動車", "依官方泡水車輛指引安排檢查與運送"],
+    warning: "若看到煙霧、火焰、火花或異常發熱，立即聯絡緊急服務並保持距離。",
+  },
+  {
+    id: "maintenance-cycle",
+    icon: "◷",
+    category: "保養",
+    title: "把官方保養週期放進行事曆",
+    time: "5 分鐘",
+    summary: "2025+ 台灣手冊列出煞車油健全檢查、車廂濾網、HEPA／碳纖濾網、雨刷與輪胎換位等建議週期。",
+    tips: ["輪胎每 10,000 公里或胎紋差達 1.5 mm 時換位，以先到者為準", "車廂空氣濾清器每 2 年、HEPA 與碳纖濾清器每 3 年", "煞車油健全情況每 4 年檢查；雨刷葉片建議每年更換"],
+    warning: "週期會依年式、駕駛方式與環境不同；以你的車主手冊及實際車況為準。",
+  },
 ];
 
 const firstWeek = [
@@ -161,6 +246,18 @@ const firstWeek = [
   { title: "確認行車記錄器有紅點且可正常儲存", detail: "加碼：實際儲存並播放一次片段，再設定哨兵模式排除地點。" },
   { title: "實際走訪一次常用的充電站", detail: "加碼：準備第二個備用站，確認第三方 App、付款與轉接需求。" },
   { title: "閱讀道路救援、緊急開門與 OTA 更新章節", detail: "加碼：找到道路救援入口，並安排一次不需用車時的更新流程。" },
+  { title: "設定住家、公司與常用目的地", detail: "讓導航、充電排程及地點型偏好更省事；分享車輛前先檢查個資。" },
+  { title: "把相機、除霧等常用功能排進快捷列", detail: "停車時完成配置，行駛中用快捷或語音減少翻找選單。" },
+  { title: "實際操作一次前、後行李廂與緊急釋放", detail: "了解正常開啟、障礙物高度設定，以及前行李廂內部逃生按鈕。" },
+  { title: "設定離車上鎖、童鎖與車窗鎖", detail: "依家庭需求逐項確認；離車後觀察一次車輛是否真的完成上鎖。" },
+  { title: "檢查冷胎胎壓、門柱標籤與胎紋", detail: "不要只等警示燈；同時看內外側是否偏磨、有無割傷或異物。" },
+  { title: "在車內找到警示燈、除霧與雨刷操作", detail: "下雨前先學會，不要在視線不清時才邊開車邊找功能。" },
+  { title: "開啟能耗頁面並完成一次短程比較", detail: "比較預估與實際消耗，觀察速度、空調、海拔和天候的影響。" },
+  { title: "確認 Autopilot 功能範圍與接管方式", detail: "只在標線清楚的適合路段練習，先訂好施工、豪雨與匝道主動接管規則。" },
+  { title: "建立家庭駕駛設定檔與個別手機鑰匙", detail: "不要共用帳號密碼；借車結束後記得檢查並移除不再需要的權限。" },
+  { title: "閱讀兒童座椅、載重與安全帶章節", detail: "有孩童或常載重物者優先完成，確認固定點、氣囊限制與門柱載重標籤。" },
+  { title: "認識正常運作聲響與警示訊息入口", detail: "先聽官方聲音範例；若聲響伴隨警示、異味或駕駛異常再安排服務。" },
+  { title: "準備洗車、爆胎、泡水與低電壓故障方案", detail: "知道洗車模式、道路救援與安全撤離原則，比臨時搜尋更可靠。" },
 ];
 
 const advancedTopics: AdvancedTopic[] = [
@@ -484,7 +581,7 @@ export default function Home() {
           <span>MODEL Y <b>新手指南</b></span>
         </a>
         <div className="nav-links">
-          <a href="#path">7 天上手</a>
+          <a href="#path">新手清單</a>
           <a href="#guides">知識庫</a>
           <a href="#advanced">進階操作</a>
           <a href="#owner-tips">車主錦囊</a>
@@ -497,9 +594,9 @@ export default function Home() {
         <div className="hero-copy">
           <div className="eyebrow"><span /> 給台灣 Model Y 新車主</div>
           <h1>第一次開 Tesla，<br /><em>不用自己摸索。</em></h1>
-          <p>從單踏板駕駛、充電，到 Autopilot 與緊急處理。把厚厚的手冊變成一條清楚、好記、能實作的上手路線。</p>
+          <p>從單踏板駕駛、充電，到 Autopilot 與緊急處理。把厚厚的手冊變成可搜尋、能勾選、真正做得到的上手路線。</p>
           <div className="hero-actions">
-            <a className="primary" href="#path">開始 7 天上手計畫 <span>↓</span></a>
+            <a className="primary" href="#path">開啟新手必做清單 <span>↓</span></a>
             <button className="text-button" onClick={() => setQuizOpen(true)}>先做 1 分鐘測驗</button>
           </div>
           <div className="trust-row">
@@ -508,20 +605,22 @@ export default function Home() {
             <span>✓ 2025+ Model Y</span>
           </div>
         </div>
-        <div className="hero-visual" aria-label="Model Y 車輛資訊示意">
-          <div className="sun" />
-          <div className="road-lines" />
-          <div className="car">
-            <div className="roof" />
-            <div className="body" />
-            <div className="window front" />
-            <div className="window rear" />
-            <div className="wheel w1" />
-            <div className="wheel w2" />
+        <div className="hero-utility" aria-label="Model Y 新手快速入口">
+          <div className="utility-head">
+            <span>START HERE</span>
+            <b>第一次上路前，先確認</b>
+            <small>不顯示虛構續航；所有數值請直接看你的車。</small>
           </div>
-          <div className="float-card range"><small>預估續航</small><strong>418 <i>km</i></strong><span><b style={{width:"78%"}} /></span></div>
-          <div className="float-card ready"><i>✓</i><div><small>今日任務</small><strong>手機鑰匙已設定</strong></div></div>
-          <div className="hero-caption"><span>01</span><div><small>今日第一課</small><b>單踏板駕駛</b></div><em>4 MIN</em></div>
+          <div className="utility-list">
+            <a href="#path"><i>01</i><span><b>完成新手清單</b><small>手機鑰匙、胎壓、記錄器與救援</small></span><em>→</em></a>
+            <a href="#guides"><i>02</i><span><b>遇到問題就搜尋</b><small>操作、充電、安全、保養與軟體</small></span><em>→</em></a>
+            <a href="#advanced"><i>03</i><span><b>熟悉後學進階</b><small>排程、能耗、設定檔與輔助駕駛</small></span><em>→</em></a>
+          </div>
+          <div className="utility-alert">
+            <span>安全底線</span>
+            <p>Autopilot 是駕駛輔助；功能名稱與可用性會依車型、年式、地區與軟體版本改變。</p>
+            <a href="https://www.tesla.com/ownersmanual/modely/zh_tw/" target="_blank" rel="noreferrer">開啟 2025+ 官方手冊 ↗</a>
+          </div>
         </div>
       </section>
 
@@ -535,15 +634,15 @@ export default function Home() {
 
       <section className="week-section" id="path">
         <div className="section-heading">
-          <div><span className="kicker">FIRST WEEK</span><h2>新車第一週，做完這 7 件事</h2><p>每完成一項就打勾。比一次讀完整本手冊更容易記住。</p></div>
+          <div><span className="kicker">NEW OWNER CHECKLIST</span><h2>新手必做清單</h2><p>不限定天數，也不必照順序。依你的用車情境逐項完成，進度會留在這台裝置。</p></div>
           <div className="progress-ring" style={{"--p": `${progress * 3.6}deg`} as React.CSSProperties}>
-            <div><strong>{progress}%</strong><small>{done.length} / 7 完成</small></div>
+            <div><strong>{progress}%</strong><small>{done.length} / {firstWeek.length} 完成</small></div>
           </div>
         </div>
         <div className="checklist">
           {firstWeek.map((item, i) => (
             <button key={item.title} className={done.includes(item.title) ? "check-item done" : "check-item"} onClick={() => toggleDone(item.title)}>
-              <span className="day">DAY {String(i + 1).padStart(2, "0")}</span>
+              <span className="day">TASK {String(i + 1).padStart(2, "0")}</span>
               <span className="box">{done.includes(item.title) ? "✓" : ""}</span>
               <span className="task"><b>{item.title}</b><small>{item.detail}</small></span>
               <span className="arrow">→</span>
