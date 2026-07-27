@@ -238,26 +238,108 @@ const guides: Guide[] = [
   },
 ];
 
-const firstWeek = [
-  { title: "完成手機鑰匙配對，實際用鑰匙卡解鎖一次", detail: "加碼：確認 App 背景執行與藍牙權限，鑰匙卡隨身備援。" },
-  { title: "調整座椅、方向盤、後視鏡並儲存駕駛設定檔", detail: "加碼：家人各建一份設定檔，確認輕鬆進出不會擠到後座。" },
-  { title: "在安全路段練習動能回收與 Hold 停車", detail: "加碼：留意滿電、低溫時回充可能較弱，腳仍要隨時準備煞車。" },
-  { title: "設定住家／公司地址與日常充電上限", detail: "加碼：建立排程充電與預先調節，長途才依需求提高上限。" },
-  { title: "確認行車記錄器有紅點且可正常儲存", detail: "加碼：實際儲存並播放一次片段，再設定哨兵模式排除地點。" },
-  { title: "實際走訪一次常用的充電站", detail: "加碼：準備第二個備用站，確認第三方 App、付款與轉接需求。" },
-  { title: "閱讀道路救援、緊急開門與 OTA 更新章節", detail: "加碼：找到道路救援入口，並安排一次不需用車時的更新流程。" },
-  { title: "設定住家、公司與常用目的地", detail: "讓導航、充電排程及地點型偏好更省事；分享車輛前先檢查個資。" },
-  { title: "把相機、除霧等常用功能排進快捷列", detail: "停車時完成配置，行駛中用快捷或語音減少翻找選單。" },
-  { title: "實際操作一次前、後行李廂與緊急釋放", detail: "了解正常開啟、障礙物高度設定，以及前行李廂內部逃生按鈕。" },
-  { title: "設定離車上鎖、童鎖與車窗鎖", detail: "依家庭需求逐項確認；離車後觀察一次車輛是否真的完成上鎖。" },
-  { title: "檢查冷胎胎壓、門柱標籤與胎紋", detail: "不要只等警示燈；同時看內外側是否偏磨、有無割傷或異物。" },
-  { title: "在車內找到警示燈、除霧與雨刷操作", detail: "下雨前先學會，不要在視線不清時才邊開車邊找功能。" },
-  { title: "開啟能耗頁面並完成一次短程比較", detail: "比較預估與實際消耗，觀察速度、空調、海拔和天候的影響。" },
-  { title: "確認 Autopilot 功能範圍與接管方式", detail: "只在標線清楚的適合路段練習，先訂好施工、豪雨與匝道主動接管規則。" },
-  { title: "建立家庭駕駛設定檔與個別手機鑰匙", detail: "不要共用帳號密碼；借車結束後記得檢查並移除不再需要的權限。" },
-  { title: "閱讀兒童座椅、載重與安全帶章節", detail: "有孩童或常載重物者優先完成，確認固定點、氣囊限制與門柱載重標籤。" },
-  { title: "認識正常運作聲響與警示訊息入口", detail: "先聽官方聲音範例；若聲響伴隨警示、異味或駕駛異常再安排服務。" },
-  { title: "準備洗車、爆胎、泡水與低電壓故障方案", detail: "知道洗車模式、道路救援與安全撤離原則，比臨時搜尋更可靠。" },
+type FirstWeekTask = {
+  title: string;
+  detail: string;
+  steps: string[];
+};
+
+const firstWeek: FirstWeekTask[] = [
+  {
+    title: "完成手機鑰匙配對，實際用鑰匙卡解鎖一次",
+    detail: "加碼：確認 App 背景執行與藍牙權限，鑰匙卡隨身備援。",
+    steps: ["打開 Tesla App，確認已登入正確帳號。", "到車內控制選單完成手機鑰匙配對。", "離開車輛後，實際用手機靠近解鎖一次。", "把鑰匙卡放在包內固定位置，確認你知道它在哪裡。"],
+  },
+  {
+    title: "調整座椅、方向盤、後視鏡並儲存駕駛設定檔",
+    detail: "加碼：家人各建一份設定檔，確認輕鬆進出不會擠到後座。",
+    steps: ["先把座椅調到腳能自然踩踏板的位置。", "調整方向盤高度與前後距離，讓手臂保持放鬆。", "設定左右後視鏡，確認看得到車側與後方車流。", "把這組設定儲存成自己的駕駛設定檔。"],
+  },
+  {
+    title: "在安全路段練習動能回收與 Hold 停車",
+    detail: "加碼：留意滿電、低溫時回充可能較弱，腳仍要隨時準備煞車。",
+    steps: ["找一段車少、路面平整的路先練習。", "輕放電門，感受車輛自然減速的節奏。", "練習慢慢收放電門，不要突然全放。", "停車時觀察 Hold 何時啟動，熟悉煞停手感。"],
+  },
+  {
+    title: "設定住家／公司地址與日常充電上限",
+    detail: "加碼：建立排程充電與預先調節，長途才依需求提高上限。",
+    steps: ["在導航中輸入住家與公司地址。", "到充電頁面，把日常上限調到車輛建議值。", "如果有固定充電習慣，順手設定排程。", "長途出發前再把上限調高，行程結束後恢復日常設定。"],
+  },
+  {
+    title: "確認行車記錄器有紅點且可正常儲存",
+    detail: "加碼：實際儲存並播放一次片段，再設定哨兵模式排除地點。",
+    steps: ["先確認 USB／儲存裝置已正確插入。", "查看螢幕上的行車記錄器圖示是否正常。", "手動儲存一段片段，確認能在播放區打開。", "依你的停車環境決定是否開啟哨兵模式。"],
+  },
+  {
+    title: "實際走訪一次常用的充電站",
+    detail: "加碼：準備第二個備用站，確認第三方 App、付款與轉接需求。",
+    steps: ["先在地圖上挑一個你平常會去的充電站。", "實際開去一次，熟悉入口、車位與槍頭位置。", "觀察現場是否需要 App、信用卡或轉接設備。", "順手再記一個備用站，避免臨時沒位子。"],
+  },
+  {
+    title: "閱讀道路救援、緊急開門與 OTA 更新章節",
+    detail: "加碼：找到道路救援入口，並安排一次不需用車時的更新流程。",
+    steps: ["先在車主手冊或 App 裡找到道路救援入口。", "確認低電壓、緊急開門與手動操作的說明。", "找一個晚上或休息日，預留更新安裝時間。", "更新前先看版本說明，避免臨時需要用車。"],
+  },
+  {
+    title: "設定住家、公司與常用目的地",
+    detail: "讓導航、充電排程及地點型偏好更省事；分享車輛前先檢查個資。",
+    steps: ["把住家、公司與常去地點加入收藏或常用目的地。", "確認導航能正確辨識這些地點。", "如果會借車，先檢查哪些地址不想被保留。", "必要時刪除或暫停不需要的地點記錄。"],
+  },
+  {
+    title: "把相機、除霧等常用功能排進快捷列",
+    detail: "停車時完成配置，行駛中用快捷或語音減少翻找選單。",
+    steps: ["打開應用程式啟動器，找出你最常用的功能。", "長按圖示，把它拖到快捷列。", "優先放入相機、除霧、導航與充電相關功能。", "坐回駕駛位確認手伸過去就能快速點到。"],
+  },
+  {
+    title: "實際操作一次前、後行李廂與緊急釋放",
+    detail: "了解正常開啟、障礙物高度設定，以及前行李廂內部逃生按鈕。",
+    steps: ["停車後實際開啟前、後行李廂一次。", "觀察手動與 App 兩種開啟方式的位置。", "確認前行李廂的障礙物高度與關閉方式。", "順手看懂緊急釋放裝置在哪裡。"],
+  },
+  {
+    title: "設定離車上鎖、童鎖與車窗鎖",
+    detail: "依家庭需求逐項確認；離車後觀察一次車輛是否真的完成上鎖。",
+    steps: ["在車內控制選單找到童鎖與車窗鎖設定。", "依乘客位置設定單邊或雙邊童鎖。", "確認手機鑰匙離開後是否會自動上鎖。", "走遠幾步，實際觀察一次車輛上鎖狀態。"],
+  },
+  {
+    title: "檢查冷胎胎壓、門柱標籤與胎紋",
+    detail: "不要只等警示燈；同時看內外側是否偏磨、有無割傷或異物。",
+    steps: ["冷車時查看門柱上的胎壓與規格標籤。", "用胎壓錶確認四輪數值是否一致。", "蹲下檢查胎紋深度與內外側磨耗。", "順手看看有沒有石子、割傷或鼓包。"],
+  },
+  {
+    title: "在車內找到警示燈、除霧與雨刷操作",
+    detail: "下雨前先學會，不要在視線不清時才邊開車邊找功能。",
+    steps: ["停車時先把警示燈位置找出來。", "試一次前擋與後擋除霧操作。", "確認雨刷速度與自動模式在哪裡調整。", "把這些功能的操作順序記熟。"],
+  },
+  {
+    title: "開啟能耗頁面並完成一次短程比較",
+    detail: "比較預估與實際消耗，觀察速度、空調、海拔和天候的影響。",
+    steps: ["打開能耗頁面或能耗圖。", "跑一段短程路線，再看預估與實際差多少。", "觀察空調、速度與路線起伏對消耗的影響。", "記住哪種開法最接近你的日常習慣。"],
+  },
+  {
+    title: "確認 Autopilot 功能範圍與接管方式",
+    detail: "只在標線清楚的適合路段練習，先訂好施工、豪雨與匝道主動接管規則。",
+    steps: ["先看車內目前可用的輔助駕駛功能名稱。", "找一段標線清楚、車流穩定的路練習。", "確認怎麼取消、接管與重新啟用。", "替施工、豪雨、匝道與複雜路口先訂好主動接管規則。"],
+  },
+  {
+    title: "建立家庭駕駛設定檔與個別手機鑰匙",
+    detail: "不要共用帳號密碼；借車結束後記得檢查並移除不再需要的權限。",
+    steps: ["為每位常開的人建立獨立駕駛設定檔。", "讓每個人用自己的手機完成配對。", "確認座椅、後視鏡與方向盤會自動切換。", "借車結束後檢查不再需要的授權。"],
+  },
+  {
+    title: "閱讀兒童座椅、載重與安全帶章節",
+    detail: "有孩童或常載重物者優先完成，確認固定點、氣囊限制與門柱載重標籤。",
+    steps: ["先對照車主手冊與兒童座椅說明書。", "確認固定點、安全帶路徑與上拉帶位置。", "檢查前座氣囊與後向式兒童座椅的限制。", "確認乘客與行李不要超過車輛負載上限。"],
+  },
+  {
+    title: "認識正常運作聲響與警示訊息入口",
+    detail: "先聽官方聲音範例；若聲響伴隨警示、異味或駕駛異常再安排服務。",
+    steps: ["先把官方正常聲音範例看過一次。", "記錄聲音出現時是否正處於充電、空調或停車狀態。", "若伴隨警示燈、異味或異常震動，立刻停下觀察。", "必要時再透過 App 預約服務。"],
+  },
+  {
+    title: "準備洗車、爆胎、泡水與低電壓故障方案",
+    detail: "知道洗車模式、道路救援與安全撤離原則，比臨時搜尋更可靠。",
+    steps: ["先看懂洗車模式怎麼開啟與關閉。", "把道路救援與保險電話存在手機裡。", "知道爆胎、泡水、低電壓故障時不要做什麼。", "把這些資料整理成自己的備忘清單。"],
+  },
 ];
 
 const checklistStages = [
@@ -550,6 +632,7 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [openGuide, setOpenGuide] = useState<string | null>("drive");
   const [openScenario, setOpenScenario] = useState<number | null>(null);
+  const [openTask, setOpenTask] = useState<string | null>(firstWeek[0]?.title ?? null);
   const [advancedCategory, setAdvancedCategory] = useState("日常效率");
   const [openAdvanced, setOpenAdvanced] = useState<string | null>("quick-bar");
   const [ownerTipCategory, setOwnerTipCategory] = useState("全部");
@@ -667,12 +750,30 @@ export default function Home() {
                   {stage.tasks.map((item) => {
                     const taskIndex = firstWeek.indexOf(item);
                     return (
-                      <button key={item.title} className={done.includes(item.title) ? "check-item done" : "check-item"} onClick={() => toggleDone(item.title)}>
-                        <span className="day">Q{stageIndex + 1}.{taskIndex - checklistStages.slice(0, stageIndex).reduce((n, s) => n + s.tasks.length, 0) + 1}</span>
-                        <span className="box">{done.includes(item.title) ? "✓" : ""}</span>
-                        <span className="task"><b>{item.title}</b><small>{item.detail}</small></span>
-                        <span className="xp">+100 XP</span>
-                      </button>
+                      <div key={item.title} className={done.includes(item.title) ? "check-item done" : "check-item"}>
+                        <button type="button" className="check-summary" onClick={() => setOpenTask(openTask === item.title ? null : item.title)} aria-expanded={openTask === item.title}>
+                          <span className="day">Q{stageIndex + 1}.{taskIndex - checklistStages.slice(0, stageIndex).reduce((n, s) => n + s.tasks.length, 0) + 1}</span>
+                          <span className="box">{done.includes(item.title) ? "✓" : ""}</span>
+                          <span className="task">
+                            <b>{item.title}</b>
+                            <small>{item.detail}</small>
+                          </span>
+                          <span className="xp">{openTask === item.title ? "收起步驟 −" : "+100 XP / 點開看步驟 +"}</span>
+                        </button>
+                        <div className={openTask === item.title ? "task-steps open" : "task-steps"}>
+                          <div className="task-steps-head">
+                            <b>怎麼做</b>
+                            <button type="button" className="task-done" onClick={() => toggleDone(item.title)}>
+                              {done.includes(item.title) ? "取消完成" : "標記完成"}
+                            </button>
+                          </div>
+                          <ol>
+                            {item.steps.map((step) => (
+                              <li key={step}>{step}</li>
+                            ))}
+                          </ol>
+                        </div>
+                      </div>
                     );
                   })}
                 </div>
