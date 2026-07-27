@@ -908,7 +908,7 @@ export default function Home() {
   const [openScenario, setOpenScenario] = useState<number | null>(null);
   const [openTask, setOpenTask] = useState<string | null>(firstWeek[0]?.title ?? null);
   const [openHelpTopic, setOpenHelpTopic] = useState<string | null>(null);
-  const [activePage, setActivePage] = useState("path");
+  const [activePage, setActivePage] = useState("home");
   const [advancedCategory, setAdvancedCategory] = useState("日常效率");
   const [openAdvanced, setOpenAdvanced] = useState<string | null>("quick-bar");
   const [ownerTipCategory, setOwnerTipCategory] = useState("全部");
@@ -941,6 +941,7 @@ export default function Home() {
   const progress = Math.round((done.length / firstWeek.length) * 100);
   const activeHelpTopic = helpTopics.find((topic) => topic.id === openHelpTopic) ?? null;
   const pageTabs = [
+    { id: "home", label: "首頁", hint: "先看整體導覽" },
     { id: "path", label: "新手任務", hint: "先把新手清單跑完" },
     { id: "guides", label: "知識庫", hint: "常用操作與查詢" },
     { id: "advanced", label: "進階操作", hint: "設定、能耗、輔助駕駛" },
@@ -965,46 +966,48 @@ export default function Home() {
         <button className="quiz-button" onClick={() => setQuizOpen(true)}>測測看 <span>→</span></button>
       </nav>
 
-      <section className="hero" id="top">
-        <div className="hero-copy">
-          <div className="eyebrow"><span /> 給台灣 Model Y 新車主</div>
-          <h1>歡迎加入 Tesla，<br /><em>新手任務開始！</em></h1>
-          <p>不用硬啃整本手冊。從第一次解鎖、第一次充電到安全使用 Autopilot，一關一關把 Model Y 技能點起來。</p>
-          <div className="hero-actions">
-            <a className="primary" href="#path">開始第一個任務 <span>↓</span></a>
-            <button className="text-button" onClick={() => setQuizOpen(true)}>先挑戰 1 分鐘測驗</button>
+      <section className={activePage === "home" ? "home-panel page-panel active" : "home-panel page-panel hidden"} id="home">
+        <section className="hero">
+          <div className="hero-copy">
+            <div className="eyebrow"><span /> 給台灣 Model Y 新車主</div>
+            <h1>歡迎加入 Tesla，<br /><em>新手任務開始！</em></h1>
+            <p>不用硬啃整本手冊。從第一次解鎖、第一次充電到安全使用 Autopilot，一關一關把 Model Y 技能點起來。</p>
+            <div className="hero-actions">
+              <a className="primary" href="#path">開始第一個任務 <span>↓</span></a>
+              <button className="text-button" onClick={() => setQuizOpen(true)}>先挑戰 1 分鐘測驗</button>
+            </div>
+            <div className="trust-row">
+              <span>✓ 依台灣版手冊校準</span>
+              <span>✓ 進度留在此裝置</span>
+              <span>✓ 2025+ Model Y</span>
+            </div>
           </div>
-          <div className="trust-row">
-            <span>✓ 依台灣版手冊校準</span>
-            <span>✓ 進度留在此裝置</span>
-            <span>✓ 2025+ Model Y</span>
+          <div className="hero-utility" aria-label="Model Y 新手快速入口">
+            <div className="utility-head">
+              <span>START HERE</span>
+              <b>你的新手基地</b>
+              <small>選一條路線開始，今天完成一小關就很棒。</small>
+            </div>
+            <div className="utility-list">
+              <a href="#path"><i>01</i><span><b>跑新手主線</b><small>五個階段，從接車一路升級到安全備援</small></span><em>→</em></a>
+              <a href="#guides"><i>02</i><span><b>翻技能圖鑑</b><small>操作、充電、安全、保養與軟體一次查</small></span><em>→</em></a>
+              <a href="#advanced"><i>03</i><span><b>解鎖進階技</b><small>排程、能耗、設定檔與輔助駕駛</small></span><em>→</em></a>
+            </div>
+            <div className="utility-alert">
+              <span>安全底線</span>
+              <p>Autopilot 是駕駛輔助；功能名稱與可用性會依車型、年式、地區與軟體版本改變。</p>
+              <a href="https://www.tesla.com/ownersmanual/modely/zh_tw/" target="_blank" rel="noreferrer">開啟 2025+ 官方手冊 ↗</a>
+            </div>
           </div>
-        </div>
-        <div className="hero-utility" aria-label="Model Y 新手快速入口">
-          <div className="utility-head">
-            <span>START HERE</span>
-            <b>你的新手基地</b>
-            <small>選一條路線開始，今天完成一小關就很棒。</small>
-          </div>
-          <div className="utility-list">
-            <a href="#path"><i>01</i><span><b>跑新手主線</b><small>五個階段，從接車一路升級到安全備援</small></span><em>→</em></a>
-            <a href="#guides"><i>02</i><span><b>翻技能圖鑑</b><small>操作、充電、安全、保養與軟體一次查</small></span><em>→</em></a>
-            <a href="#advanced"><i>03</i><span><b>解鎖進階技</b><small>排程、能耗、設定檔與輔助駕駛</small></span><em>→</em></a>
-          </div>
-          <div className="utility-alert">
-            <span>安全底線</span>
-            <p>Autopilot 是駕駛輔助；功能名稱與可用性會依車型、年式、地區與軟體版本改變。</p>
-            <a href="https://www.tesla.com/ownersmanual/modely/zh_tw/" target="_blank" rel="noreferrer">開啟 2025+ 官方手冊 ↗</a>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="quick-strip">
+        <section className="quick-strip">
         <span className="quick-title">出發前 30 秒</span>
         <div><i>01</i><b>胎壓</b><small>無警示燈</small></div>
         <div><i>02</i><b>電量</b><small>足夠抵達 + 緩衝</small></div>
         <div><i>03</i><b>鏡頭</b><small>乾淨、無遮擋</small></div>
         <div><i>04</i><b>路線</b><small>長途用車機導航</small></div>
+        </section>
       </section>
 
       <section className="page-switcher" aria-label="頁面索引">
