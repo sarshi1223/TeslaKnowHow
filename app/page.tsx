@@ -260,6 +260,14 @@ const firstWeek = [
   { title: "準備洗車、爆胎、泡水與低電壓故障方案", detail: "知道洗車模式、道路救援與安全撤離原則，比臨時搜尋更可靠。" },
 ];
 
+const checklistStages = [
+  { level: "LEVEL 01", icon: "⚡", title: "接車開局", subtitle: "先把鑰匙、座艙與個人設定準備好", tasks: firstWeek.slice(0, 4) },
+  { level: "LEVEL 02", icon: "↗", title: "安心上路", subtitle: "練好駕駛手感、視野與安全基本功", tasks: firstWeek.slice(4, 8) },
+  { level: "LEVEL 03", icon: "ϟ", title: "能量補給", subtitle: "搞懂充電、導航與續航節奏", tasks: firstWeek.slice(8, 12) },
+  { level: "LEVEL 04", icon: "◎", title: "技能解鎖", subtitle: "開始善用效率工具與輔助功能", tasks: firstWeek.slice(12, 16) },
+  { level: "LEVEL 05", icon: "◇", title: "安全備援", subtitle: "把保養、救援與特殊情境收進工具箱", tasks: firstWeek.slice(16) },
+];
+
 const advancedTopics: AdvancedTopic[] = [
   {
     id: "quick-bar",
@@ -593,11 +601,11 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-copy">
           <div className="eyebrow"><span /> 給台灣 Model Y 新車主</div>
-          <h1>第一次開 Tesla，<br /><em>不用自己摸索。</em></h1>
-          <p>從單踏板駕駛、充電，到 Autopilot 與緊急處理。把厚厚的手冊變成可搜尋、能勾選、真正做得到的上手路線。</p>
+          <h1>歡迎加入 Tesla，<br /><em>新手任務開始！</em></h1>
+          <p>不用硬啃整本手冊。從第一次解鎖、第一次充電到安全使用 Autopilot，一關一關把 Model Y 技能點起來。</p>
           <div className="hero-actions">
-            <a className="primary" href="#path">開啟新手必做清單 <span>↓</span></a>
-            <button className="text-button" onClick={() => setQuizOpen(true)}>先做 1 分鐘測驗</button>
+            <a className="primary" href="#path">開始第一個任務 <span>↓</span></a>
+            <button className="text-button" onClick={() => setQuizOpen(true)}>先挑戰 1 分鐘測驗</button>
           </div>
           <div className="trust-row">
             <span>✓ 依台灣版手冊校準</span>
@@ -608,13 +616,13 @@ export default function Home() {
         <div className="hero-utility" aria-label="Model Y 新手快速入口">
           <div className="utility-head">
             <span>START HERE</span>
-            <b>第一次上路前，先確認</b>
-            <small>不顯示虛構續航；所有數值請直接看你的車。</small>
+            <b>你的新手基地</b>
+            <small>選一條路線開始，今天完成一小關就很棒。</small>
           </div>
           <div className="utility-list">
-            <a href="#path"><i>01</i><span><b>完成新手清單</b><small>手機鑰匙、胎壓、記錄器與救援</small></span><em>→</em></a>
-            <a href="#guides"><i>02</i><span><b>遇到問題就搜尋</b><small>操作、充電、安全、保養與軟體</small></span><em>→</em></a>
-            <a href="#advanced"><i>03</i><span><b>熟悉後學進階</b><small>排程、能耗、設定檔與輔助駕駛</small></span><em>→</em></a>
+            <a href="#path"><i>01</i><span><b>跑新手主線</b><small>五個階段，從接車一路升級到安全備援</small></span><em>→</em></a>
+            <a href="#guides"><i>02</i><span><b>翻技能圖鑑</b><small>操作、充電、安全、保養與軟體一次查</small></span><em>→</em></a>
+            <a href="#advanced"><i>03</i><span><b>解鎖進階技</b><small>排程、能耗、設定檔與輔助駕駛</small></span><em>→</em></a>
           </div>
           <div className="utility-alert">
             <span>安全底線</span>
@@ -634,20 +642,43 @@ export default function Home() {
 
       <section className="week-section" id="path">
         <div className="section-heading">
-          <div><span className="kicker">NEW OWNER CHECKLIST</span><h2>新手必做清單</h2><p>不限定天數，也不必照順序。依你的用車情境逐項完成，進度會留在這台裝置。</p></div>
+          <div><span className="kicker">YOUR FIRST QUEST</span><h2>Model Y 新手任務線</h2><p>不用趕進度，也不必一天全破。從接車開局到安全備援，照自己的節奏逐步升級。</p></div>
           <div className="progress-ring" style={{"--p": `${progress * 3.6}deg`} as React.CSSProperties}>
-            <div><strong>{progress}%</strong><small>{done.length} / {firstWeek.length} 完成</small></div>
+            <div><strong>{progress}%</strong><small>{done.length * 100} XP</small></div>
           </div>
         </div>
-        <div className="checklist">
-          {firstWeek.map((item, i) => (
-            <button key={item.title} className={done.includes(item.title) ? "check-item done" : "check-item"} onClick={() => toggleDone(item.title)}>
-              <span className="day">TASK {String(i + 1).padStart(2, "0")}</span>
-              <span className="box">{done.includes(item.title) ? "✓" : ""}</span>
-              <span className="task"><b>{item.title}</b><small>{item.detail}</small></span>
-              <span className="arrow">→</span>
-            </button>
-          ))}
+        <div className="quest-overview">
+          <span><b>{done.length}</b> / {firstWeek.length} 任務完成</span>
+          <div><i style={{ width: `${progress}%` }} /></div>
+          <em>{progress === 100 ? "全成就解鎖！" : `再完成 ${firstWeek.length - done.length} 項就全破`}</em>
+        </div>
+        <div className="quest-stages">
+          {checklistStages.map((stage, stageIndex) => {
+            const stageDone = stage.tasks.filter((item) => done.includes(item.title)).length;
+            const complete = stageDone === stage.tasks.length;
+            return (
+              <section className={complete ? "quest-stage complete" : "quest-stage"} key={stage.level}>
+                <header>
+                  <span className="stage-icon">{complete ? "✓" : stage.icon}</span>
+                  <div><small>{stage.level}</small><h3>{stage.title}</h3><p>{stage.subtitle}</p></div>
+                  <em>{complete ? "CLEAR!" : `${stageDone} / ${stage.tasks.length}`}</em>
+                </header>
+                <div className="checklist">
+                  {stage.tasks.map((item) => {
+                    const taskIndex = firstWeek.indexOf(item);
+                    return (
+                      <button key={item.title} className={done.includes(item.title) ? "check-item done" : "check-item"} onClick={() => toggleDone(item.title)}>
+                        <span className="day">Q{stageIndex + 1}.{taskIndex - checklistStages.slice(0, stageIndex).reduce((n, s) => n + s.tasks.length, 0) + 1}</span>
+                        <span className="box">{done.includes(item.title) ? "✓" : ""}</span>
+                        <span className="task"><b>{item.title}</b><small>{item.detail}</small></span>
+                        <span className="xp">+100 XP</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })}
         </div>
       </section>
 
