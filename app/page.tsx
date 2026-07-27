@@ -908,6 +908,7 @@ export default function Home() {
   const [openScenario, setOpenScenario] = useState<number | null>(null);
   const [openTask, setOpenTask] = useState<string | null>(firstWeek[0]?.title ?? null);
   const [openHelpTopic, setOpenHelpTopic] = useState<string | null>(null);
+  const [activePage, setActivePage] = useState("path");
   const [advancedCategory, setAdvancedCategory] = useState("日常效率");
   const [openAdvanced, setOpenAdvanced] = useState<string | null>("quick-bar");
   const [ownerTipCategory, setOwnerTipCategory] = useState("全部");
@@ -939,6 +940,13 @@ export default function Home() {
   const quizComplete = Object.keys(answers).length === quiz.length;
   const progress = Math.round((done.length / firstWeek.length) * 100);
   const activeHelpTopic = helpTopics.find((topic) => topic.id === openHelpTopic) ?? null;
+  const pageTabs = [
+    { id: "path", label: "新手任務", hint: "先把新手清單跑完" },
+    { id: "guides", label: "知識庫", hint: "常用操作與查詢" },
+    { id: "advanced", label: "進階操作", hint: "設定、能耗、輔助駕駛" },
+    { id: "owner-tips", label: "車主錦囊", hint: "社群經驗與實用配件" },
+    { id: "rescue", label: "情境急救", hint: "遇到狀況先怎麼做" },
+  ];
 
   return (
     <main>
@@ -999,7 +1007,26 @@ export default function Home() {
         <div><i>04</i><b>路線</b><small>長途用車機導航</small></div>
       </section>
 
-      <section className="week-section" id="path">
+      <section className="page-switcher" aria-label="頁面索引">
+        {pageTabs.map((page) => (
+          <button key={page.id} className={activePage === page.id ? "page-switch active" : "page-switch"} onClick={() => setActivePage(page.id)}>
+            <span>{page.label}</span>
+            <small>{page.hint}</small>
+          </button>
+        ))}
+      </section>
+
+      <div className="page-layout">
+        <aside className="page-sidebar" aria-label="頁面側邊索引">
+          {pageTabs.map((page) => (
+            <button key={page.id} className={activePage === page.id ? "side-index active" : "side-index"} onClick={() => setActivePage(page.id)}>
+              <span>{page.label}</span>
+              <small>{page.hint}</small>
+            </button>
+          ))}
+        </aside>
+        <div className="page-stack">
+      <section className={activePage === "path" ? "week-section page-panel active" : "week-section page-panel hidden"} id="path">
         <div className="section-heading">
           <div><span className="kicker">YOUR FIRST QUEST</span><h2>Model Y 新手任務線</h2><p>不用趕進度，也不必一天全破。從接車開局到安全備援，照自己的節奏逐步升級。</p></div>
           <div className="progress-ring" style={{"--p": `${progress * 3.6}deg`} as React.CSSProperties}>
@@ -1078,7 +1105,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="guides-section" id="guides">
+      <section className={activePage === "guides" ? "guides-section page-panel active" : "guides-section page-panel hidden"} id="guides">
         <div className="section-heading compact">
           <div><span className="kicker">KNOWLEDGE, CURATED</span><h2>真正需要懂的，只有這幾類</h2></div>
           <label className="search"><span>⌕</span><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="搜尋：充電、胎壓、手機鑰匙…" /></label>
@@ -1104,7 +1131,7 @@ export default function Home() {
         {filtered.length === 0 && <p className="empty">找不到相符內容，試試「充電」或「胎壓」。</p>}
       </section>
 
-      <section className="advanced-section" id="advanced">
+      <section className={activePage === "advanced" ? "advanced-section page-panel active" : "advanced-section page-panel hidden"} id="advanced">
         <div className="advanced-heading">
           <div>
             <span className="kicker light">AFTER DAY 7</span>
@@ -1165,7 +1192,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="owner-tips-section" id="owner-tips">
+      <section className={activePage === "owner-tips" ? "owner-tips-section page-panel active" : "owner-tips-section page-panel hidden"} id="owner-tips">
         <div className="tips-heading">
           <div>
             <span className="kicker">OWNER NOTES</span>
@@ -1263,7 +1290,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="rescue-section" id="rescue">
+      <section className={activePage === "rescue" ? "rescue-section page-panel active" : "rescue-section page-panel hidden"} id="rescue">
         <div className="rescue-intro">
           <span className="kicker light">WHEN THINGS GO WRONG</span>
           <h2>遇到狀況，<br />先別慌。</h2>
@@ -1278,6 +1305,9 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      </div>
+      </div>
 
       <section className="source-section">
         <div><span className="kicker">KEEP LEARNING</span><h2>資訊會更新，讓官方手冊當最後一關</h2></div>
