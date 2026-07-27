@@ -963,9 +963,9 @@ export default function Home() {
         </div>
       </nav>
 
-      <aside className="mobile-index-backdrop" aria-hidden={!mobileIndexOpen}>
+      <aside className={mobileIndexOpen ? "mobile-index-backdrop open" : "mobile-index-backdrop"} aria-hidden={!mobileIndexOpen}>
         <button className="mobile-index-scrim" type="button" aria-label="關閉索引" onClick={() => setMobileIndexOpen(false)} />
-        <div className={mobileIndexOpen ? "mobile-index-sheet open" : "mobile-index-sheet"} onClick={(e) => e.stopPropagation()}>
+        <div className={mobileIndexOpen ? "mobile-index-sheet open" : "mobile-index-sheet"}>
           <div className="mobile-index-head">
             <div>
               <span>頁面索引</span>
@@ -982,15 +982,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </aside>
-
-      <aside className="desktop-page-sidebar" aria-label="頁面側邊索引">
-        {pageTabs.map((page) => (
-          <button key={page.id} className={activePage === page.id ? "side-index active" : "side-index"} onClick={() => setActivePage(page.id)}>
-            <span>{page.label}</span>
-            <small>{page.hint}</small>
-          </button>
-        ))}
       </aside>
 
       <section className={activePage === "home" ? "home-panel page-panel active" : "home-panel page-panel hidden"} id="home">
@@ -1037,8 +1028,8 @@ export default function Home() {
         </section>
       </section>
 
-      <div className="page-layout">
-        <aside className="page-sidebar" aria-label="頁面側邊索引">
+      {activePage !== "home" && (
+        <aside className="desktop-page-sidebar" aria-label="頁面側邊索引">
           {pageTabs.map((page) => (
             <button key={page.id} className={activePage === page.id ? "side-index active" : "side-index"} onClick={() => setActivePage(page.id)}>
               <span>{page.label}</span>
@@ -1046,6 +1037,9 @@ export default function Home() {
             </button>
           ))}
         </aside>
+      )}
+
+      <div className="page-layout">
         <div className="page-stack">
       <section className={activePage === "path" ? "week-section page-panel active" : "week-section page-panel hidden"} id="path">
         <div className="section-heading">
