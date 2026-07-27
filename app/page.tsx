@@ -24,6 +24,17 @@ type AdvancedTopic = {
   note?: string;
 };
 
+type OwnerTip = {
+  category: string;
+  icon: string;
+  title: string;
+  summary: string;
+  action: string;
+  source: "Tesla No.1" | "TESLA995";
+  level: "車主實測" | "版本依賴" | "安全提醒";
+  url: string;
+};
+
 const guides: Guide[] = [
   {
     id: "drive",
@@ -238,6 +249,101 @@ const advancedTopics: AdvancedTopic[] = [
 
 const advancedCategories = ["日常效率", "駕駛共享", "充電電池", "導航能耗", "空調停車", "安全記錄", "輔助駕駛", "保養服務"];
 
+const ownerTips: OwnerTip[] = [
+  {
+    category: "停車安全",
+    icon: "◉",
+    title: "哨兵事件沒跳通知，先別認定沒有錄到",
+    summary: "停車後若懷疑有碰撞或異常，可先到行車記錄器檢視器確認最近片段；重要影像應儘快備份，避免循環錄影覆蓋。",
+    action: "先保全現場 → 停妥後檢查片段 → 立即備份",
+    source: "Tesla No.1",
+    level: "版本依賴",
+    url: "https://teslano1.com/knowledge/sentry-mode-k905/",
+  },
+  {
+    category: "停車安全",
+    icon: "▣",
+    title: "建立自己的 USB 檢查習慣",
+    summary: "不要等到事件發生才確認儲存裝置。平時留意行車記錄器圖示、可用空間與最近影片是否能正常播放。",
+    action: "每月抽查一次；長途前再確認一次",
+    source: "Tesla No.1",
+    level: "安全提醒",
+    url: "https://teslano1.com/knowledge-category/operation/",
+  },
+  {
+    category: "充電",
+    icon: "ϟ",
+    title: "第一次用第三方充電站，預留配對時間",
+    summary: "第三方站點的 App、付款、啟動順序與槍頭規格可能不同。出發前確認站點營運狀態、轉接需求與替代站。",
+    action: "先裝 App、綁付款，再準備一個備用站",
+    source: "TESLA995",
+    level: "車主實測",
+    url: "https://www.tesla995.com/post-20260524-tesla-charging-guide-taiwan.html",
+  },
+  {
+    category: "充電",
+    icon: "↯",
+    title: "轉接器能插上，不代表每一站都能用",
+    summary: "CCS2 等轉接方案仍受車輛硬體、支援狀態、充電樁與韌體影響；購買前先核對你的車輛與原廠最新資訊。",
+    action: "先確認車款／年份／支援狀態，再購買",
+    source: "TESLA995",
+    level: "版本依賴",
+    url: "https://www.tesla995.com/post-20260523-tesla-ccs2-adapter-taiwan-impact.html",
+  },
+  {
+    category: "駕駛習慣",
+    icon: "◷",
+    title: "安靜與瞬間扭力，容易讓速度感失真",
+    summary: "Model Y 加速直接、車室安靜，體感速度可能低於實際車速。市區起步時可改用較柔和模式，並主動查看速限與車速。",
+    action: "路口柔和起步；用車速顯示校準體感",
+    source: "TESLA995",
+    level: "安全提醒",
+    url: "https://www.tesla995.com/post-20260601-tesla-speeding-psychology-and-tech.html",
+  },
+  {
+    category: "輔助駕駛",
+    icon: "◎",
+    title: "先分清 AP、EAP 與 FSD 的能力邊界",
+    summary: "名稱相近不代表功能相同，且台灣可用功能會受車輛、地區與版本限制。啟用前先確認畫面顯示，不靠印象操作。",
+    action: "看車內功能清單；每次更新後重新確認",
+    source: "TESLA995",
+    level: "版本依賴",
+    url: "https://www.tesla995.com/knowledge.html",
+  },
+  {
+    category: "輪胎保養",
+    icon: "◌",
+    title: "輪胎尺寸不只影響外觀",
+    summary: "輪圈與輪胎尺寸會牽動舒適、續航、胎價與抗坑洞能力。更換前還要核對負重、速度等級與車身干涉。",
+    action: "以門柱與車主手冊規格為底線，再談升級",
+    source: "TESLA995",
+    level: "安全提醒",
+    url: "https://www.tesla995.com/post-20260531-tesla-tire-size-guide-for-taiwan-owners.html",
+  },
+  {
+    category: "軟體工具",
+    icon: "⌘",
+    title: "更新後先花兩分鐘看版本說明",
+    summary: "OTA 可能改變選單位置、功能名稱或駕駛感受。更新完成後先讀版本資訊，停車時再測試新功能。",
+    action: "閱讀說明 → 檢查常用設定 → 安全環境試用",
+    source: "TESLA995",
+    level: "版本依賴",
+    url: "https://www.tesla995.com/knowledge.html",
+  },
+  {
+    category: "軟體工具",
+    icon: "♪",
+    title: "自訂鎖車聲前，先留好原始檔與備援",
+    summary: "社群工具可製作自訂鎖車聲，但檔名、格式與功能支援會隨版本變動。不要覆蓋行車記錄器的重要資料。",
+    action: "使用獨立資料夾；失效時先查版本與格式",
+    source: "Tesla No.1",
+    level: "車主實測",
+    url: "https://teslano1.com/tesla-knowledge/",
+  },
+];
+
+const ownerTipCategories = ["全部", ...Array.from(new Set(ownerTips.map((tip) => tip.category)))];
+
 const scenarios = [
   {
     q: "手機沒電，怎麼開車？",
@@ -283,6 +389,7 @@ export default function Home() {
   const [openScenario, setOpenScenario] = useState<number | null>(null);
   const [advancedCategory, setAdvancedCategory] = useState("日常效率");
   const [openAdvanced, setOpenAdvanced] = useState<string | null>("quick-bar");
+  const [ownerTipCategory, setOwnerTipCategory] = useState("全部");
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [quizOpen, setQuizOpen] = useState(false);
 
@@ -322,6 +429,7 @@ export default function Home() {
           <a href="#path">7 天上手</a>
           <a href="#guides">知識庫</a>
           <a href="#advanced">進階操作</a>
+          <a href="#owner-tips">車主錦囊</a>
           <a href="#rescue">情境急救</a>
         </div>
         <button className="quiz-button" onClick={() => setQuizOpen(true)}>測測看 <span>→</span></button>
@@ -470,6 +578,45 @@ export default function Home() {
         <div className="advanced-footer">
           <p><b>判斷原則</b>　方便功能應該減少分心，不是增加操作。行駛中看不懂的功能，先停車再處理。</p>
           <a href="https://www.tesla.com/ownersmanual/modely/zh_tw/" target="_blank" rel="noreferrer">查閱你的最新版手冊 ↗</a>
+        </div>
+      </section>
+
+      <section className="owner-tips-section" id="owner-tips">
+        <div className="tips-heading">
+          <div>
+            <span className="kicker">OWNER NOTES</span>
+            <h2>車主社群裡，<br />真正實用的小知識</h2>
+          </div>
+          <div className="tips-context">
+            <b>9 則精選</b>
+            <p>整理自兩個台灣 Tesla 知識站。標籤會提醒你哪些屬於經驗、版本差異或安全事項；點卡片可查看原始文章。</p>
+          </div>
+        </div>
+        <div className="tip-filters" role="tablist" aria-label="車主錦囊分類">
+          {ownerTipCategories.map((c) => (
+            <button key={c} className={ownerTipCategory === c ? "active" : ""} onClick={() => setOwnerTipCategory(c)}>
+              {c}
+            </button>
+          ))}
+        </div>
+        <div className="owner-tip-grid">
+          {ownerTips.filter((tip) => ownerTipCategory === "全部" || tip.category === ownerTipCategory).map((tip) => (
+            <a className="owner-tip-card" href={tip.url} target="_blank" rel="noreferrer" key={tip.title}>
+              <div className="tip-meta">
+                <span className="tip-icon">{tip.icon}</span>
+                <span>{tip.category}</span>
+                <em className={`tip-level ${tip.level === "安全提醒" ? "safety" : tip.level === "版本依賴" ? "version" : ""}`}>{tip.level}</em>
+              </div>
+              <h3>{tip.title}</h3>
+              <p>{tip.summary}</p>
+              <div className="tip-action"><small>帶走這一招</small><strong>{tip.action}</strong></div>
+              <div className="tip-source"><span>來源 · {tip.source}</span><i>閱讀原文 ↗</i></div>
+            </a>
+          ))}
+        </div>
+        <div className="tips-disclaimer">
+          <b>怎麼讀這一區？</b>
+          <p>車主經驗適合當作探索入口，不是安全規範。功能、介面與相容性可能因年式、硬體、地區及軟體版本而不同；操作前請以車內提示與最新版官方手冊為準。</p>
         </div>
       </section>
 
