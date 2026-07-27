@@ -958,7 +958,9 @@ export default function Home() {
           <span>MODEL Y <b>新手指南</b></span>
         </a>
         <div className="nav-actions">
-          <button className="index-button" onClick={() => setMobileIndexOpen(true)}>索引</button>
+          <button className="index-button" onClick={() => setMobileIndexOpen(true)} aria-label="索引">
+            <span aria-hidden="true">☰</span>
+          </button>
           <button className="quiz-button" onClick={() => setQuizOpen(true)}>測測看 <span>→</span></button>
         </div>
       </nav>
