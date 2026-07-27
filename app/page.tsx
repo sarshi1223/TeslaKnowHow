@@ -909,6 +909,7 @@ export default function Home() {
   const [openTask, setOpenTask] = useState<string | null>(firstWeek[0]?.title ?? null);
   const [openHelpTopic, setOpenHelpTopic] = useState<string | null>(null);
   const [activePage, setActivePage] = useState("home");
+  const [mobileIndexOpen, setMobileIndexOpen] = useState(false);
   const [advancedCategory, setAdvancedCategory] = useState("日常效率");
   const [openAdvanced, setOpenAdvanced] = useState<string | null>("quick-bar");
   const [ownerTipCategory, setOwnerTipCategory] = useState("全部");
@@ -956,18 +957,33 @@ export default function Home() {
           <span className="brand-mark">T</span>
           <span>MODEL Y <b>新手指南</b></span>
         </a>
-        <button className="quiz-button" onClick={() => setQuizOpen(true)}>測測看 <span>→</span></button>
+        <div className="nav-actions">
+          <button className="index-button" onClick={() => setMobileIndexOpen(true)}>索引</button>
+          <button className="quiz-button" onClick={() => setQuizOpen(true)}>測測看 <span>→</span></button>
+        </div>
       </nav>
 
+      <section className={mobileIndexOpen ? "mobile-index-backdrop open" : "mobile-index-backdrop"} onClick={() => setMobileIndexOpen(false)} aria-hidden={!mobileIndexOpen}>
+        <div className="mobile-index-sheet" onClick={(e) => e.stopPropagation()}>
+          <div className="mobile-index-head">
+            <div>
+              <span>頁面索引</span>
+              <b>選一個區塊切換</b>
+            </div>
+            <button type="button" onClick={() => setMobileIndexOpen(false)} aria-label="關閉索引">×</button>
+          </div>
+          <div className="mobile-index-list">
+            {pageTabs.map((page) => (
+              <button key={page.id} className={activePage === page.id ? "side-index active" : "side-index"} onClick={() => { setActivePage(page.id); setMobileIndexOpen(false); }}>
+                <span>{page.label}</span>
+                <small>{page.hint}</small>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className={activePage === "home" ? "home-panel page-panel active" : "home-panel page-panel hidden"} id="home">
-        <section className="page-switcher" aria-label="頁面索引">
-          {pageTabs.map((page) => (
-            <button key={page.id} className={activePage === page.id ? "page-switch active" : "page-switch"} onClick={() => setActivePage(page.id)}>
-              <span>{page.label}</span>
-              <small>{page.hint}</small>
-            </button>
-          ))}
-        </section>
         <section className="hero">
           <div className="hero-copy">
             <div className="eyebrow"><span /> 給台灣 Model Y 新車主</div>
@@ -1012,16 +1028,14 @@ export default function Home() {
       </section>
 
       <div className="page-layout">
-        {activePage !== "home" && (
-          <aside className="page-sidebar" aria-label="頁面側邊索引">
-            {pageTabs.map((page) => (
-              <button key={page.id} className={activePage === page.id ? "side-index active" : "side-index"} onClick={() => setActivePage(page.id)}>
-                <span>{page.label}</span>
-                <small>{page.hint}</small>
-              </button>
-            ))}
-          </aside>
-        )}
+        <aside className="page-sidebar" aria-label="頁面側邊索引">
+          {pageTabs.map((page) => (
+            <button key={page.id} className={activePage === page.id ? "side-index active" : "side-index"} onClick={() => setActivePage(page.id)}>
+              <span>{page.label}</span>
+              <small>{page.hint}</small>
+            </button>
+          ))}
+        </aside>
         <div className="page-stack">
       <section className={activePage === "path" ? "week-section page-panel active" : "week-section page-panel hidden"} id="path">
         <div className="section-heading">
