@@ -45,6 +45,8 @@ type ToolPick = {
   badge?: string;
 };
 
+const assetPath = (name: string) => `${import.meta.env.BASE_URL}help-images/${name}`;
+
 const guides: Guide[] = [
   {
     id: "drive",
@@ -441,7 +443,7 @@ const helpTopics: HelpTopic[] = [
     summary: "Model Y 的重點是前門、後門，以及前備箱與後行李廂相關的緊急處理位置。先在安全狀態下找一次，真的需要時才不會慌。",
     media: {
       kind: "photo",
-      src: "/help-images/trunk-release.png",
+      src: assetPath("trunk-release.png"),
       alt: "後行李箱緊急釋放裝置照片",
       caption: "後行李箱緊急釋放裝置位置圖：先認清箭頭指向的位置。",
     },
@@ -461,7 +463,7 @@ const helpTopics: HelpTopic[] = [
     summary: "胎壓與負載標籤在駕駛座前門門柱上，開門後就能看到。先找這張標籤，再去對照冷胎胎壓。",
     media: {
       kind: "photo",
-      src: "/help-images/door-jamb-label.png",
+      src: assetPath("door-jamb-label.png"),
       alt: "門柱上的胎壓與規格標籤位置圖",
       caption: "位置圖：開啟駕駛座車門後，箭頭指向的就是門柱標籤。",
     },
