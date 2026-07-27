@@ -963,12 +963,13 @@ export default function Home() {
         </div>
       </nav>
 
-      <section className={mobileIndexOpen ? "mobile-index-backdrop open" : "mobile-index-backdrop"} onClick={() => setMobileIndexOpen(false)} aria-hidden={!mobileIndexOpen}>
-        <div className="mobile-index-sheet" onClick={(e) => e.stopPropagation()}>
+      <aside className="mobile-index-backdrop" aria-hidden={!mobileIndexOpen}>
+        <button className="mobile-index-scrim" type="button" aria-label="關閉索引" onClick={() => setMobileIndexOpen(false)} />
+        <div className={mobileIndexOpen ? "mobile-index-sheet open" : "mobile-index-sheet"} onClick={(e) => e.stopPropagation()}>
           <div className="mobile-index-head">
             <div>
               <span>頁面索引</span>
-              <b>選一個區塊切換</b>
+              <b>快速切換區塊</b>
             </div>
             <button type="button" onClick={() => setMobileIndexOpen(false)} aria-label="關閉索引">×</button>
           </div>
@@ -981,7 +982,16 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </aside>
+
+      <aside className="desktop-page-sidebar" aria-label="頁面側邊索引">
+        {pageTabs.map((page) => (
+          <button key={page.id} className={activePage === page.id ? "side-index active" : "side-index"} onClick={() => setActivePage(page.id)}>
+            <span>{page.label}</span>
+            <small>{page.hint}</small>
+          </button>
+        ))}
+      </aside>
 
       <section className={activePage === "home" ? "home-panel page-panel active" : "home-panel page-panel hidden"} id="home">
         <section className="hero">
