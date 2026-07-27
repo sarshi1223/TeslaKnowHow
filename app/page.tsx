@@ -93,16 +93,74 @@ const guides: Guide[] = [
     summary: "定期看胎壓與胎紋、雨刷精與冷氣濾網；依車況安排輪胎換位。",
     tips: ["每月與長途前檢查胎壓", "留意內側不均勻磨耗", "潮濕環境保持煞車碟盤乾燥與潔淨"],
   },
+  {
+    id: "ota",
+    icon: "↓",
+    category: "軟體",
+    title: "OTA 更新前後要做什麼",
+    time: "4 分鐘",
+    summary: "車輛連上穩定 Wi‑Fi 後可下載更新。安裝期間不能駕駛，完成後先看版本說明再上路。",
+    tips: ["安排在不需要用車的時段安裝", "更新前確認電量與 Wi‑Fi 穩定", "完成後檢查常用快捷列與駕駛設定"],
+    warning: "不要在即將出發、充電或需要移車時開始安裝。",
+  },
+  {
+    id: "wash",
+    icon: "≈",
+    category: "車輛操作",
+    title: "進自動洗車前開啟洗車模式",
+    time: "3 分鐘",
+    summary: "洗車模式會集中處理車窗、雨刷、充電口等設定；輸送帶洗車還需依畫面條件啟用自由滑行。",
+    tips: ["先停妥並在控制選單開啟洗車模式", "依洗車場指示操作排檔與煞車", "離場後確認模式結束、車窗與充電口正常"],
+    warning: "不同洗車設備流程不同；不確定時先詢問現場人員，避免強行拖動車輛。",
+  },
+  {
+    id: "door-controls",
+    icon: "□",
+    category: "車輛操作",
+    title: "把童鎖、車窗鎖與離車上鎖設好",
+    time: "4 分鐘",
+    summary: "常載家人時，先確認後門童鎖、車窗鎖及離車自動上鎖；下車後留意車輛是否真的完成上鎖。",
+    tips: ["依乘客需求設定左側、右側或雙側童鎖", "確認手機鑰匙的背景與藍牙權限", "在住家等地點是否排除自動上鎖，依你的風險調整"],
+  },
+  {
+    id: "ap-levels",
+    icon: "◈",
+    category: "輔助駕駛",
+    title: "分清 AP、EAP、FSD",
+    time: "5 分鐘",
+    summary: "名稱相近但功能範圍不同，而且會受地區、硬體與軟體版本限制；以車內實際顯示為準。",
+    tips: ["先確認你的車實際購買與啟用項目", "更新後重新閱讀版本說明", "任何等級都要求駕駛持續監督並準備接管"],
+    warning: "網路影片中的海外功能，不代表台灣車輛目前可用。",
+  },
+  {
+    id: "tire-spec",
+    icon: "○",
+    category: "保養",
+    title: "換胎不能只看輪圈吋數",
+    time: "5 分鐘",
+    summary: "尺寸、載重指數、速度等級與車身間隙都會影響安全；較大輪圈也可能改變舒適度、續航與成本。",
+    tips: ["先看駕駛座門柱標籤與官方規格", "同軸輪胎維持一致規格與相近磨耗", "換胎後確認胎壓監測與輪圈設定"],
+    warning: "不確定相容性時，交由熟悉 Tesla 規格的專業輪胎店確認。",
+  },
+  {
+    id: "service-prep",
+    icon: "◇",
+    category: "保養",
+    title: "異音與警示先留下可重現線索",
+    time: "3 分鐘",
+    summary: "服務預約前記下發生時間、速度、路況與警示文字，照片或短片通常比只寫「有異音」更有效。",
+    tips: ["安全停妥後拍下完整警示", "記錄冷車／熱車、轉彎或顛簸等條件", "透過 Tesla App 服務項目附上資料"],
+  },
 ];
 
 const firstWeek = [
-  "完成手機鑰匙配對，實際用鑰匙卡解鎖一次",
-  "調整座椅、方向盤、後視鏡並儲存駕駛設定檔",
-  "在安全路段練習動能回收與 Hold 停車",
-  "設定住家／公司地址與日常充電上限",
-  "確認行車記錄器有紅點且可正常儲存",
-  "實際走訪一次常用的充電站",
-  "閱讀車上手冊的道路救援與緊急開門章節",
+  { title: "完成手機鑰匙配對，實際用鑰匙卡解鎖一次", detail: "加碼：確認 App 背景執行與藍牙權限，鑰匙卡隨身備援。" },
+  { title: "調整座椅、方向盤、後視鏡並儲存駕駛設定檔", detail: "加碼：家人各建一份設定檔，確認輕鬆進出不會擠到後座。" },
+  { title: "在安全路段練習動能回收與 Hold 停車", detail: "加碼：留意滿電、低溫時回充可能較弱，腳仍要隨時準備煞車。" },
+  { title: "設定住家／公司地址與日常充電上限", detail: "加碼：建立排程充電與預先調節，長途才依需求提高上限。" },
+  { title: "確認行車記錄器有紅點且可正常儲存", detail: "加碼：實際儲存並播放一次片段，再設定哨兵模式排除地點。" },
+  { title: "實際走訪一次常用的充電站", detail: "加碼：準備第二個備用站，確認第三方 App、付款與轉接需求。" },
+  { title: "閱讀道路救援、緊急開門與 OTA 更新章節", detail: "加碼：找到道路救援入口，並安排一次不需用車時的更新流程。" },
 ];
 
 const advancedTopics: AdvancedTopic[] = [
@@ -484,10 +542,10 @@ export default function Home() {
         </div>
         <div className="checklist">
           {firstWeek.map((item, i) => (
-            <button key={item} className={done.includes(item) ? "check-item done" : "check-item"} onClick={() => toggleDone(item)}>
+            <button key={item.title} className={done.includes(item.title) ? "check-item done" : "check-item"} onClick={() => toggleDone(item.title)}>
               <span className="day">DAY {String(i + 1).padStart(2, "0")}</span>
-              <span className="box">{done.includes(item) ? "✓" : ""}</span>
-              <span className="task">{item}</span>
+              <span className="box">{done.includes(item.title) ? "✓" : ""}</span>
+              <span className="task"><b>{item.title}</b><small>{item.detail}</small></span>
               <span className="arrow">→</span>
             </button>
           ))}
