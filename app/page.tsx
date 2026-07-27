@@ -242,6 +242,17 @@ type FirstWeekTask = {
   title: string;
   detail: string;
   steps: string[];
+  helpLinks?: string[];
+};
+
+type HelpTopic = {
+  id: string;
+  title: string;
+  icon: string;
+  summary: string;
+  steps: string[];
+  highlight: string;
+  source: string;
 };
 
 const firstWeek: FirstWeekTask[] = [
@@ -249,11 +260,13 @@ const firstWeek: FirstWeekTask[] = [
     title: "完成手機鑰匙配對，實際用鑰匙卡解鎖一次",
     detail: "加碼：確認 App 背景執行與藍牙權限，鑰匙卡隨身備援。",
     steps: ["打開 Tesla App，確認已登入正確帳號。", "到車內控制選單完成手機鑰匙配對。", "離開車輛後，實際用手機靠近解鎖一次。", "把鑰匙卡放在包內固定位置，確認你知道它在哪裡。"],
+    helpLinks: ["driver-profile"],
   },
   {
     title: "調整座椅、方向盤、後視鏡並儲存駕駛設定檔",
     detail: "加碼：家人各建一份設定檔，確認輕鬆進出不會擠到後座。",
     steps: ["先把座椅調到腳能自然踩踏板的位置。", "調整方向盤高度與前後距離，讓手臂保持放鬆。", "設定左右後視鏡，確認看得到車側與後方車流。", "把這組設定儲存成自己的駕駛設定檔。"],
+    helpLinks: ["driver-profile"],
   },
   {
     title: "在安全路段練習動能回收與 Hold 停車",
@@ -279,6 +292,7 @@ const firstWeek: FirstWeekTask[] = [
     title: "閱讀道路救援、緊急開門與 OTA 更新章節",
     detail: "加碼：找到道路救援入口，並安排一次不需用車時的更新流程。",
     steps: ["先在車主手冊或 App 裡找到道路救援入口。", "確認低電壓、緊急開門與手動操作的說明。", "找一個晚上或休息日，預留更新安裝時間。", "更新前先看版本說明，避免臨時需要用車。"],
+    helpLinks: ["low-voltage", "manual-door", "manual-operation"],
   },
   {
     title: "設定住家、公司與常用目的地",
@@ -294,6 +308,7 @@ const firstWeek: FirstWeekTask[] = [
     title: "實際操作一次前、後行李廂與緊急釋放",
     detail: "了解正常開啟、障礙物高度設定，以及前行李廂內部逃生按鈕。",
     steps: ["停車後實際開啟前、後行李廂一次。", "觀察手動與 App 兩種開啟方式的位置。", "確認前行李廂的障礙物高度與關閉方式。", "順手看懂緊急釋放裝置在哪裡。"],
+    helpLinks: ["trunk-release"],
   },
   {
     title: "設定離車上鎖、童鎖與車窗鎖",
@@ -304,6 +319,7 @@ const firstWeek: FirstWeekTask[] = [
     title: "檢查冷胎胎壓、門柱標籤與胎紋",
     detail: "不要只等警示燈；同時看內外側是否偏磨、有無割傷或異物。",
     steps: ["冷車時查看門柱上的胎壓與規格標籤。", "用胎壓錶確認四輪數值是否一致。", "蹲下檢查胎紋深度與內外側磨耗。", "順手看看有沒有石子、割傷或鼓包。"],
+    helpLinks: ["pillar-label"],
   },
   {
     title: "在車內找到警示燈、除霧與雨刷操作",
@@ -314,11 +330,13 @@ const firstWeek: FirstWeekTask[] = [
     title: "開啟能耗頁面並完成一次短程比較",
     detail: "比較預估與實際消耗，觀察速度、空調、海拔和天候的影響。",
     steps: ["打開能耗頁面或能耗圖。", "跑一段短程路線，再看預估與實際差多少。", "觀察空調、速度與路線起伏對消耗的影響。", "記住哪種開法最接近你的日常習慣。"],
+    helpLinks: ["energy-page"],
   },
   {
     title: "確認 Autopilot 功能範圍與接管方式",
     detail: "只在標線清楚的適合路段練習，先訂好施工、豪雨與匝道主動接管規則。",
     steps: ["先看車內目前可用的輔助駕駛功能名稱。", "找一段標線清楚、車流穩定的路練習。", "確認怎麼取消、接管與重新啟用。", "替施工、豪雨、匝道與複雜路口先訂好主動接管規則。"],
+    helpLinks: ["autopilot-rules"],
   },
   {
     title: "建立家庭駕駛設定檔與個別手機鑰匙",
@@ -339,6 +357,137 @@ const firstWeek: FirstWeekTask[] = [
     title: "準備洗車、爆胎、泡水與低電壓故障方案",
     detail: "知道洗車模式、道路救援與安全撤離原則，比臨時搜尋更可靠。",
     steps: ["先看懂洗車模式怎麼開啟與關閉。", "把道路救援與保險電話存在手機裡。", "知道爆胎、泡水、低電壓故障時不要做什麼。", "把這些資料整理成自己的備忘清單。"],
+    helpLinks: ["wash-mode"],
+  },
+];
+
+const helpTopics: HelpTopic[] = [
+  {
+    id: "driver-profile",
+    title: "駕駛設定檔怎麼改、怎麼存",
+    icon: "🪪",
+    summary: "先把座椅、方向盤和後視鏡調到你舒服的位置，再存成自己的設定檔，之後上車就能一鍵切回來。",
+    steps: [
+      "到車內觸控螢幕的「控制」>「設定檔」。",
+      "選擇「新增駕駛人」，輸入名字並建立設定檔。",
+      "把座椅、方向盤和後視鏡調到你喜歡的位置。",
+      "如果常上下車不方便，勾選「輕鬆進出」。",
+      "改完後，看到提示時按「儲存」即可保存新位置。",
+    ],
+    highlight: "建議先完成一次實際坐姿調整，再存檔。",
+    source: "Tesla Model Y 2025+ 車主手冊｜駕駛人設定檔",
+  },
+  {
+    id: "low-voltage",
+    title: "低電壓沒電時怎麼處理",
+    icon: "🔋",
+    summary: "低電壓沒電時，很多平常靠螢幕或手機能做的事都會失效。這時要先確認怎麼救援，再決定下一步。",
+    steps: [
+      "先確認車輛是否真的低電壓沒電，不要急著硬開門或硬充電。",
+      "如果前車門無法正常開啟，查看手冊的手動解鎖說明。",
+      "如果連前行李廂都打不開，按照手冊用外部低電壓電源開鎖。",
+      "聯絡道路救援，讓救援人員依年式處理。",
+    ],
+    highlight: "不同年式的低電壓處理方式可能不同，要對照你的車主手冊。",
+    source: "Tesla Model Y 2025+ 車主手冊｜沒電時開啟車門 / 開啟前備箱",
+  },
+  {
+    id: "manual-door",
+    title: "緊急開門怎麼做",
+    icon: "🚪",
+    summary: "只有在沒電或必要時才使用手動車門釋放。前門和後門的位置不一樣，先認清楚再用。",
+    steps: [
+      "前門：找到車窗開關前方的手動車門解鎖裝置，向上拉。",
+      "後門：打開後門袋下方的解鎖蓋，找到機械式解鎖纜線。",
+      "向前拉機械式解鎖纜線，就能手動開門。",
+      "車輛有電時，優先使用車內正常開門按鈕。",
+    ],
+    highlight: "車輛行進中不要使用手動車門解鎖。",
+    source: "Tesla Model Y 2025+ 車主手冊｜沒電時開啟車門",
+  },
+  {
+    id: "manual-operation",
+    title: "手動操作要注意什麼",
+    icon: "✋",
+    summary: "像是手動開門、手動換檔或緊急情況下的操作，都要先確認對應的位置和條件，避免誤用。",
+    steps: [
+      "先看螢幕上的正常操作按鈕在哪裡，知道什麼情況需要手動。",
+      "若觸控螢幕無法使用，再依手冊切換到手動換檔或手動開啟方式。",
+      "任何手動裝置都應只在必要時使用。",
+      "使用前先停車並確認車輛狀態，避免邊開邊操作。",
+    ],
+    highlight: "手動操作是備用方案，不是日常操作方式。",
+    source: "Tesla Model Y 2025+ 車主手冊｜換檔 / 車門",
+  },
+  {
+    id: "trunk-release",
+    title: "緊急釋放裝置在哪裡",
+    icon: "🧰",
+    summary: "前車門、後車門、前行李廂或其他緊急釋放位置，最好先在安全狀態下找一次，真的需要時才不會慌。",
+    steps: [
+      "先在手冊裡找對應部位的圖示，確認是前車門、後車門還是前行李廂。",
+      "前車門通常在車窗開關前方，後車門則在門袋底部附近。",
+      "前行李廂若遇到沒電狀態，需依外接低電壓電源的步驟處理。",
+      "平常可以先在車內熟悉位置，但不要隨便拉動。",
+    ],
+    highlight: "先找位置，再看開法，最後才實際操作。",
+    source: "Tesla Model Y 2025+ 車主手冊｜沒電時開啟車門 / 開啟前備箱",
+  },
+  {
+    id: "pillar-label",
+    title: "門柱上的胎壓標籤在哪裡",
+    icon: "🏷️",
+    summary: "胎壓與負載標籤在駕駛座車門柱上，開門後就能看到。先找這張標籤，再去對照冷胎胎壓。",
+    steps: [
+      "打開駕駛座車門。",
+      "看車門鉸鏈附近的車門柱位置。",
+      "找到寫有輪胎尺寸、胎壓和載重資訊的標籤。",
+      "用這張標籤來對照冷胎胎壓，而不是只看輪胎側邊文字。",
+    ],
+    highlight: "車門打開後，門柱邊上的那張貼紙就是你要找的。",
+    source: "Tesla Model Y 2025+ 車主手冊｜輪胎維護與保養 / 車輛負載",
+  },
+  {
+    id: "energy-page",
+    title: "能耗頁面怎麼開",
+    icon: "📈",
+    summary: "能耗頁面可以看本次駕駛、旅程與平均耗電，幫你快速比較為什麼同一段路電量消耗不同。",
+    steps: [
+      "在車內觸控螢幕上打開應用程式啟動器。",
+      "進入「電量」或「能耗」相關 App。",
+      "切到「旅程」或你想看的資料視圖。",
+      "點選各段旅程，查看距離、時間與能耗。",
+    ],
+    highlight: "長途前後看一次，很容易發現耗電差異。",
+    source: "Tesla Model Y 2025+ 車主手冊｜旅程資訊",
+  },
+  {
+    id: "autopilot-rules",
+    title: "主動接管規則怎麼定",
+    icon: "🛣️",
+    summary: "主動巡航或自動輔助駕駛不是放手模式。你可以先替施工、豪雨、匝道、複雜路口訂出自己的主動接管規則。",
+    steps: [
+      "先認出你常開的路段裡，哪些地方最容易需要人工接管。",
+      "把施工區、豪雨、標線模糊、匝道和複雜路口列成固定接管點。",
+      "啟用功能前，先確認車道、交通與天候都適合。",
+      "一旦畫面開始不穩或你沒把握，就提前接管。",
+    ],
+    highlight: "先訂規則，遇到固定情境就不用臨場猜。",
+    source: "Tesla Model Y 2025+ 車主手冊｜關於自動輔助駕駛 / FSD 限制",
+  },
+  {
+    id: "wash-mode",
+    title: "洗車模式怎麼開關",
+    icon: "🫧",
+    summary: "進洗車機前先開洗車模式，會關窗、鎖充電口並停用雨刷和一些警示；離開洗車場後再關掉。",
+    steps: [
+      "確認車輛停止且未充電。",
+      "到「控制」>「服務」>「洗車模式」。",
+      "若是自動洗車，再視需要啟用自由滑行 / 空檔模式。",
+      "洗完後，按畫面上的退出或開到時速超過 15 km/h 以上自動結束。",
+    ],
+    highlight: "進洗車機前先開，離開洗車場後再關。",
+    source: "Tesla Model Y 2025+ 車主手冊｜清潔 / 洗車模式",
   },
 ];
 
@@ -633,6 +782,7 @@ export default function Home() {
   const [openGuide, setOpenGuide] = useState<string | null>("drive");
   const [openScenario, setOpenScenario] = useState<number | null>(null);
   const [openTask, setOpenTask] = useState<string | null>(firstWeek[0]?.title ?? null);
+  const [openHelpTopic, setOpenHelpTopic] = useState<string | null>(null);
   const [advancedCategory, setAdvancedCategory] = useState("日常效率");
   const [openAdvanced, setOpenAdvanced] = useState<string | null>("quick-bar");
   const [ownerTipCategory, setOwnerTipCategory] = useState("全部");
@@ -663,6 +813,7 @@ export default function Home() {
   const score = quiz.reduce((n, item, i) => n + (answers[i] === item.answer ? 1 : 0), 0);
   const quizComplete = Object.keys(answers).length === quiz.length;
   const progress = Math.round((done.length / firstWeek.length) * 100);
+  const activeHelpTopic = helpTopics.find((topic) => topic.id === openHelpTopic) ?? null;
 
   return (
     <main>
@@ -763,11 +914,28 @@ export default function Home() {
                         {openTask === item.title && (
                           <div className="task-steps">
                             <div className="task-steps-head">
-                              <b>怎麼做</b>
+                              <div className="task-steps-title">
+                                <span className="task-step-icon">🧭</span>
+                                <b>怎麼做</b>
+                              </div>
                               <button type="button" className="task-done" onClick={() => toggleDone(item.title)}>
                                 {done.includes(item.title) ? "取消完成" : "標記完成"}
                               </button>
                             </div>
+                            {item.helpLinks?.length ? (
+                              <div className="quick-links" aria-label="快捷教學">
+                                {item.helpLinks.map((helpId) => {
+                                  const topic = helpTopics.find((entry) => entry.id === helpId);
+                                  if (!topic) return null;
+                                  return (
+                                    <button key={helpId} type="button" className="quick-link" onClick={() => setOpenHelpTopic(helpId)}>
+                                      <span>{topic.icon}</span>
+                                      <b>{topic.title}</b>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            ) : null}
                             <ol>
                               {item.steps.map((step) => (
                                 <li key={step}>{step}</li>
@@ -954,6 +1122,35 @@ export default function Home() {
           {quizComplete && <button className="primary reset" onClick={() => setAnswers({})}>再測一次</button>}
         </section>
       </div>}
+
+      {activeHelpTopic && (
+        <div className="modal-backdrop" onMouseDown={() => setOpenHelpTopic(null)}>
+          <section className="help-modal" role="dialog" aria-modal="true" aria-label={activeHelpTopic.title} onMouseDown={(e) => e.stopPropagation()}>
+            <button className="close" onClick={() => setOpenHelpTopic(null)} aria-label="關閉">×</button>
+            <div className="help-hero">
+              <span>{activeHelpTopic.icon}</span>
+              <div>
+                <span className="kicker">QUICK GUIDE</span>
+                <h2>{activeHelpTopic.title}</h2>
+                <p>{activeHelpTopic.summary}</p>
+              </div>
+            </div>
+            <div className="help-highlight">
+              <b>先記住</b>
+              <p>{activeHelpTopic.highlight}</p>
+            </div>
+            <div className="help-steps">
+              {activeHelpTopic.steps.map((step, index) => (
+                <div className="help-step" key={step}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <p>{step}</p>
+                </div>
+              ))}
+            </div>
+            <div className="help-source">{activeHelpTopic.source}</div>
+          </section>
+        </div>
+      )}
     </main>
   );
 }
