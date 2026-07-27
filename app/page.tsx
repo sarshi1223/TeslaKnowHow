@@ -984,6 +984,19 @@ export default function Home() {
         </div>
       </aside>
 
+      <aside className="desktop-page-sidebar" aria-label="頁面側邊索引">
+        {pageTabs.map((page) => (
+          <button
+            key={page.id}
+            className={activePage === page.id ? "side-index active" : "side-index"}
+            onClick={() => setActivePage(page.id)}
+          >
+            <span>{page.label}</span>
+            <small>{page.hint}</small>
+          </button>
+        ))}
+      </aside>
+
       <section className={activePage === "home" ? "home-panel page-panel active" : "home-panel page-panel hidden"} id="home">
         <section className="hero">
           <div className="hero-copy">
@@ -1027,17 +1040,6 @@ export default function Home() {
         <div><i>04</i><b>路線</b><small>長途用車機導航</small></div>
         </section>
       </section>
-
-      {activePage !== "home" && (
-        <aside className="desktop-page-sidebar" aria-label="頁面側邊索引">
-          {pageTabs.map((page) => (
-            <button key={page.id} className={activePage === page.id ? "side-index active" : "side-index"} onClick={() => setActivePage(page.id)}>
-              <span>{page.label}</span>
-              <small>{page.hint}</small>
-            </button>
-          ))}
-        </aside>
-      )}
 
       <div className="page-layout">
         <div className="page-stack">
